@@ -42,7 +42,6 @@ Button {
         Label {
             id: lblTitle
             width: parent.width
-//            Material.foreground: "white"
             Material.foreground: Material.LightGreen
             font.pointSize: 14
             elide: Text.ElideRight
@@ -55,7 +54,6 @@ Button {
         Label {
             id: lblSubtitle
             width: parent.width
-//            Material.foreground: "white"
             Material.foreground: Material.LightGreen
             font.pointSize: 11
             elide: Text.ElideRight

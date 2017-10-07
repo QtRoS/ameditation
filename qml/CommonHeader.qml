@@ -29,7 +29,7 @@ Pane {
         Column {
             Label {
                 text: qsTr("Antonov Alexander")
-                Material.foreground: "white" //Material.LightGreen
+                Material.foreground: "white"
                 font.pointSize: 10
                 Rectangle {
                     color: "#00ff0000"
@@ -39,7 +39,7 @@ Pane {
 
             Label {
                 text: qsTr("MEDITATIONS 3")
-                Material.foreground: "white" //Material.LightGreen
+                Material.foreground: "white"
                 font.pointSize: 14
                 elide: Text.ElideRight
                 Rectangle {
@@ -50,7 +50,7 @@ Pane {
 
             Label {
                 text: qsTr("Psychologist - psychotherapist")
-                Material.foreground: "white" //Material.LightGreen
+                Material.foreground: "white"
                 font.pointSize: 10
                 elide: Text.ElideRight
                 Rectangle {

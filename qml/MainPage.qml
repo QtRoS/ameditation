@@ -20,7 +20,7 @@ Page {
                 right: parent.right
             }
             height: 120
-            Material.background: "white" //Material.LightGreen
+            Material.background: "white"
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationListPage.qml"))
 
             Column {
