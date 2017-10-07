@@ -14,51 +14,54 @@ Button {
         right: parent.right
     }
     height: 80
-    Material.background: "transparent"
+    Material.background: "white"
+    //Material.elevation: 2
 
 //    Rectangle { color: "transparent"; anchors.fill: parent; border.width: 1; border.color: "red" }
 
-    // TODO Remove row, use anchors.
-    Row {
-        id: contentRow
-        spacing: 10
-        anchors.fill: parent
-
-        Image {
-            id: imgIcon
-            anchors.verticalCenter: parent.verticalCenter
-            width: 60
-            height: 60
+    Image {
+        id: imgIcon
+        anchors {
+            left: parent.left
+            leftMargin: 10
+            verticalCenter: parent.verticalCenter
         }
 
-        Column {
-            anchors.verticalCenter: parent.verticalCenter
-            width: contentRow.width - x
+        width: 60
+        height: 60
+    }
 
-            Label {
-                id: lblTitle
-                width: parent.width
-    //            Material.foreground: "white"
-                Material.foreground: Material.LightGreen
-                font.pointSize: 14
-                elide: Text.ElideRight
-                Rectangle {
-                    color: "#00ff0000"
-                    anchors.fill: parent
-                }
+    Column {
+        anchors {
+            left: imgIcon.right
+            leftMargin: 10
+            right: parent.right
+            verticalCenter: parent.verticalCenter
+        }
+
+        Label {
+            id: lblTitle
+            width: parent.width
+//            Material.foreground: "white"
+            Material.foreground: Material.LightGreen
+            font.pointSize: 14
+            elide: Text.ElideRight
+            Rectangle {
+                color: "#00ff0000"
+                anchors.fill: parent
             }
+        }
 
-            Label {
-                id: lblSubtitle
-                width: parent.width
-    //            Material.foreground: "white"
-                Material.foreground: Material.LightGreen
-                font.pointSize: 11
-                elide: Text.ElideRight
-                Rectangle {
-                    color: "#00ff0000"
-                    anchors.fill: parent
-                }
+        Label {
+            id: lblSubtitle
+            width: parent.width
+//            Material.foreground: "white"
+            Material.foreground: Material.LightGreen
+            font.pointSize: 11
+            elide: Text.ElideRight
+            Rectangle {
+                color: "#00ff0000"
+                anchors.fill: parent
             }
         }
     }

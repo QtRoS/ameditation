@@ -14,23 +14,32 @@ Page {
         model: mainPageModel
 
         header: Button {
+            id: mainButton
             anchors {
                 left: parent.left
                 right: parent.right
             }
             height: 120
-            Material.background: "transparent" //Material.LightGreen
+            Material.background: "white" //Material.LightGreen
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationListPage.qml"))
 
             Column {
                 id: btnLayout
+                spacing: 10
                 anchors.centerIn: parent
 
-                Image {
-                    source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
-                    width: 70
-                    height: 70
+                Row {
                     anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: (mainButton.width - 4 * 50) / 6
+                    Repeater {
+                        model: 4
+
+                        Image {
+                            source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
+                            width: 50
+                            height: 50
+                        }
+                    }
                 }
 
                 Label {
