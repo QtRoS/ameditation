@@ -1,7 +1,14 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
+<RCC>
     <qresource prefix="/">
-        <file>qml/main.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>qml/main.qml</file>
+        <file>qml/MainPage.qml</file>
+        <file>qml/MeditationListPage.qml</file>
+        <file>qml/MeditationPage.qml</file>
+        <file>qml/CommonHeader.qml</file>
+        <file>qml/CommonListItem.qml</file>
+        <file>qml/InstructionPage.qml</file>
+        <file>qml/AboutPage.qml</file>
+        <file>qml/SignUpPage.qml</file>
     </qresource>
 </RCC>

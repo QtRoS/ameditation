@@ -6,29 +6,15 @@ ApplicationWindow {
     visible: true
     width: 400
     height: 640
-    title: qsTr("Hello World")
+    title: qsTr("Meditations")
 
-    SwipeView {
-        id: swipeView
+    header: CommonHeader { }
+
+    StackView {
+        id: stackView
+
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
-
-        Page {
-            Label {
-                text: qsTr("Second page")
-                anchors.centerIn: parent
-            }
-        }
-    }
-
-    footer: TabBar {
-        id: tabBar
-        currentIndex: swipeView.currentIndex
-        TabButton {
-            text: qsTr("First")
-        }
-        TabButton {
-            text: qsTr("Second")
-        }
+        Component.onCompleted: push(mainPage)
+        MainPage { id: mainPage }
     }
 }

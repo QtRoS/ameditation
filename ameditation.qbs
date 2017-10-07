@@ -26,8 +26,9 @@ Project {
         ]
 
         files: [
+            "media.qrc",
+            "qml/*.qml",
             "main.cpp",
-            "qml/main.qml",
             "qml.qrc",
         ]
 
