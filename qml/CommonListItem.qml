@@ -16,28 +16,28 @@ Button {
     height: 80
     Material.background: "transparent"
 
-    // Rectangle { color: "red"; anchors.fill: parent }
-    Rectangle { color: "transparent"; anchors.fill: parent; border.width: 1; border.color: "red" }
+//    Rectangle { color: "transparent"; anchors.fill: parent; border.width: 1; border.color: "red" }
 
+    // TODO Remove row, use anchors.
     Row {
+        id: contentRow
         spacing: 10
         anchors.fill: parent
-        Layout.maximumHeight: imgIcon.height
 
         Image {
             id: imgIcon
-            Layout.rowSpan: 2
             anchors.verticalCenter: parent.verticalCenter
             width: 60
             height: 60
-
-//            Rectangle { color: "red"; anchors.fill: parent }
         }
 
         Column {
             anchors.verticalCenter: parent.verticalCenter
+            width: contentRow.width - x
+
             Label {
                 id: lblTitle
+                width: parent.width
     //            Material.foreground: "white"
                 Material.foreground: Material.LightGreen
                 font.pointSize: 14
@@ -50,6 +50,7 @@ Button {
 
             Label {
                 id: lblSubtitle
+                width: parent.width
     //            Material.foreground: "white"
                 Material.foreground: Material.LightGreen
                 font.pointSize: 11

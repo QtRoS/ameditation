@@ -18,7 +18,7 @@ Page {
                 left: parent.left
                 right: parent.right
             }
-            height: 160
+            height: 120
             Material.background: "transparent" //Material.LightGreen
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationListPage.qml"))
 

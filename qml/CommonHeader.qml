@@ -9,12 +9,9 @@ Pane {
     Material.elevation: 4
     Material.background: Material.LightGreen
 
-    GridLayout {
-        rows: 3
-        columns: 2
-        anchors.fill: parent
-        flow: GridLayout.TopToBottom
-        rowSpacing: 0
+    Row {
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: 10
 
         Image {
             source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
@@ -22,48 +19,44 @@ Pane {
                 width: 70
                 height: 70
             }
-            Layout.rowSpan: 3
-        }
 
-        Label {
-            text: qsTr("Antonov Alexander")
-            Material.foreground: "white" //Material.LightGreen
-            font.pointSize: 10
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            Layout.fillWidth: true
-            elide: Text.ElideRight
-            Rectangle {
-                color: "#00ff0000"
+            MouseArea {
                 anchors.fill: parent
+                onClicked: stackView.pop()
             }
         }
 
-        Label {
-            text: qsTr("MEDITATIONS 3")
-            Material.foreground: "white" //Material.LightGreen
-            font.pointSize: 14
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            Layout.fillWidth: true
-            elide: Text.ElideRight
-            Rectangle {
-                color: "#00ff0000"
-                anchors.fill: parent
+        Column {
+            Label {
+                text: qsTr("Antonov Alexander")
+                Material.foreground: "white" //Material.LightGreen
+                font.pointSize: 10
+                Rectangle {
+                    color: "#00ff0000"
+                    anchors.fill: parent
+                }
             }
-        }
 
-        Label {
-            text: qsTr("Psychologist - psychotherapist")
-            Material.foreground: "white" //Material.LightGreen
-            font.pointSize: 10
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            Layout.fillWidth: true
-            elide: Text.ElideRight
-            Rectangle {
-                color: "#00ff0000"
-                anchors.fill: parent
+            Label {
+                text: qsTr("MEDITATIONS 3")
+                Material.foreground: "white" //Material.LightGreen
+                font.pointSize: 14
+                elide: Text.ElideRight
+                Rectangle {
+                    color: "#00ff0000"
+                    anchors.fill: parent
+                }
+            }
+
+            Label {
+                text: qsTr("Psychologist - psychotherapist")
+                Material.foreground: "white" //Material.LightGreen
+                font.pointSize: 10
+                elide: Text.ElideRight
+                Rectangle {
+                    color: "#00ff0000"
+                    anchors.fill: parent
+                }
             }
         }
     }
