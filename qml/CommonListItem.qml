@@ -54,7 +54,8 @@ Button {
         Label {
             id: lblSubtitle
             width: parent.width
-            Material.foreground: Material.LightGreen
+            //Material.foreground: Material.LightGreen
+            Material.foreground: Material.Grey
             font.pointSize: 11
             elide: Text.ElideRight
             Rectangle {

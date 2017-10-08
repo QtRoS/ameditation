@@ -16,7 +16,7 @@ Page {
             title: model.title
             subtitle: model.subtitle
 
-            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationPage.qml"), {"meditation": model.meditation})
+            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationPage.qml"), {"meditationId": model.meditation, "meditationTitle": model.title})
         }
     }
 

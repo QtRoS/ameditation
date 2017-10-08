@@ -1,15 +1,109 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.2
+import QtMultimedia 5.9
 
 Page {
 
-    property string meditation: ""
+    property string meditationId: ""
+    property string meditationTitle: ""
 
-    Label {
-        text: qsTr("MeditationPage")
-        anchors.centerIn: parent
+    Audio {
+        id: audioPlayback
+        property bool isPlaying: audioPlayback.playbackState == Audio.PlayingState
+        source: "qrc:/carthago.mp3"
+        onStatusChanged: console.log("onStatusChanged", status, errorString, error)
     }
 
-    Component.onCompleted: console.log("meditation", meditation)
+    Pane {
+        id: mainPane
+
+        anchors {
+            fill: parent
+            margins: 20
+        }
+        Material.elevation: 2
+
+        Flickable {
+            anchors.fill: parent
+            clip: true
+
+            contentWidth: parent.width
+            contentHeight: innerItem.height
+
+            Column {
+                id: innerItem
+                spacing: 5
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                }
+
+                Label {
+                    text: meditationTitle
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Material.foreground: Material.LightGreen
+                    font.pointSize: 14
+                    elide: Text.ElideRight
+                }
+
+                Label {
+                    text: "Работа с РСУБД является одной из важнейших частей разработки веб-приложений. Дискусcии о том, как правильно представить данные из БД в приложении ведутся давно. Существует два основных паттерна для работы с БД: ActiveRecord и DataMapper. ActiveRecord считается многими программистами антипаттерном. Утверждается, что объекты ActiveRecord нарушают принцип единственной обязанности (SRP). DataMapper считается единственно верным подходом к обеспечению персистентности в ООП. Первая часть статьи посвящена тому, что DataMapper далеко не идеален как концептуально, так и на практике. Вторая часть статьи показывает, как можно улучшить свой код используя существующие реализации ActiveRecord и несколько простых правил. Представленный материал относится главным образом к РСУБД, поддерживающим транзакции."
+                    width: parent.width
+                    wrapMode: Text.WrapAnywhere
+                    //Material.foreground: Material.LightGreen
+                    Material.foreground: Material.Grey
+                    textFormat: Text.PlainText
+                    //font.pointSize: 12
+                }
+
+                Item {
+                    height: 50
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+
+                    Slider {
+                        anchors {
+                            left: parent.left
+                            right: playBtn.left
+                            verticalCenter: parent.verticalCenter
+                        }
+                        from: 0
+                        to: audioPlayback.duration
+                        value: audioPlayback.position
+                        onMoved: audioPlayback.seek(value)
+                    }
+
+                    Button {
+                        id: playBtn
+
+                        anchors {
+                            right: parent.right
+                            verticalCenter: parent.verticalCenter
+                        }
+                        text: audioPlayback.isPlaying ? qsTr("⏸️") : qsTr("▶️")
+                        onClicked: {
+                            if (audioPlayback.isPlaying)
+                                audioPlayback.pause()
+                            else audioPlayback.play()
+                        }
+                    }
+                }
+
+                Label {
+                    text: "(%1:%2/%3:%4)".arg(Math.floor(audioPlayback.position/60000))
+                                         .arg(audioPlayback.position%60000)
+                                         .arg(Math.floor(audioPlayback.duration/60000))
+                                         .arg(audioPlayback.duration%60000)
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Material.foreground: Material.Grey
+                    textFormat: Text.PlainText
+                }
+            }
+        }
+    }
 }
