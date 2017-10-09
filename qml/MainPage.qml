@@ -19,14 +19,20 @@ Page {
                 left: parent.left
                 right: parent.right
             }
-            height: 120
+            height: btnLayout.height + 30
             Material.background: "white"
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationListPage.qml"))
 
             Column {
                 id: btnLayout
                 spacing: 10
-                anchors.centerIn: parent
+                anchors {
+                    top: parent.top
+                    topMargin: 15
+                    left: parent.left
+                    right: parent.right
+                    margins: 10
+                }
 
                 Row {
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -47,6 +53,18 @@ Page {
                     font.pointSize: 14
                     Material.foreground: Material.LightGreen
                     anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Label {
+                    text: "Take a look at meditation list, select one and relax"
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    horizontalAlignment: Text.AlignHCenter
+                    Material.foreground: Material.Grey
+                    font.pointSize: 11
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
             }
         }

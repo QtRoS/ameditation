@@ -21,7 +21,7 @@ Page {
 
         anchors {
             fill: parent
-            margins: 20
+            margins: 15
         }
         Material.elevation: 2
 
@@ -52,7 +52,8 @@ Page {
                 Label {
                     text: "Работа с РСУБД является одной из важнейших частей разработки веб-приложений. Дискусcии о том, как правильно представить данные из БД в приложении ведутся давно. Существует два основных паттерна для работы с БД: ActiveRecord и DataMapper. ActiveRecord считается многими программистами антипаттерном. Утверждается, что объекты ActiveRecord нарушают принцип единственной обязанности (SRP). DataMapper считается единственно верным подходом к обеспечению персистентности в ООП. Первая часть статьи посвящена тому, что DataMapper далеко не идеален как концептуально, так и на практике. Вторая часть статьи показывает, как можно улучшить свой код используя существующие реализации ActiveRecord и несколько простых правил. Представленный материал относится главным образом к РСУБД, поддерживающим транзакции."
                     width: parent.width
-                    wrapMode: Text.WrapAnywhere
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    horizontalAlignment: Text.AlignJustify
                     //Material.foreground: Material.LightGreen
                     Material.foreground: Material.Grey
                     textFormat: Text.PlainText
