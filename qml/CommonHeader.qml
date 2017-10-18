@@ -4,10 +4,12 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.2
 
 Pane {
+    property color customColor: "#ffffff" // Use color from options when white is set.
+
     width: parent.width
     height: 80
     Material.elevation: 4
-    Material.background: Material.LightGreen
+    Material.background: customColor == "#ffffff" ? optionsKeeper.accentColor : customColor
 
     Row {
         anchors.verticalCenter: parent.verticalCenter
@@ -28,8 +30,8 @@ Pane {
 
         Column {
             Label {
-                text: qsTr("Antonov Alexander")
-                Material.foreground: "white"
+                text: qsTr("Антонов Александр")
+                Material.foreground: optionsKeeper.contrastColor
                 font.pointSize: 10
                 Rectangle {
                     color: "#00ff0000"
@@ -38,8 +40,8 @@ Pane {
             }
 
             Label {
-                text: qsTr("MEDITATIONS 3")
-                Material.foreground: "white"
+                text: qsTr("МЕДИТАЦИИ 3")
+                Material.foreground: optionsKeeper.contrastColor
                 font.pointSize: 14
                 elide: Text.ElideRight
                 Rectangle {
@@ -49,8 +51,8 @@ Pane {
             }
 
             Label {
-                text: qsTr("Psychologist - psychotherapist")
-                Material.foreground: "white"
+                text: qsTr("Психолог - психотерапевт")
+                Material.foreground: optionsKeeper.contrastColor
                 font.pointSize: 10
                 elide: Text.ElideRight
                 Rectangle {

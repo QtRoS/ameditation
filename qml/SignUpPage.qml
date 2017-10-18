@@ -31,9 +31,9 @@ Page {
                 }
 
                 Label {
-                    text: qsTr("Sign up for visit")
+                    text: qsTr("Записться на прием")
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground: Material.LightGreen
+                    Material.foreground: optionsKeeper.accentColor
                     font.pointSize: 14
                     elide: Text.ElideRight
                 }

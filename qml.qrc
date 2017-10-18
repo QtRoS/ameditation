@@ -10,5 +10,12 @@
         <file>qml/InstructionPage.qml</file>
         <file>qml/AboutPage.qml</file>
         <file>qml/SignUpPage.qml</file>
+        <file>qml/OptionsKeeper.qml</file>
+        <file>qml/RoundedIcon.qml</file>
+        <file>qml/MeditationModel.qml</file>
+        <file>img/my0.png</file>
+        <file>img/my1.png</file>
+        <file>img/my2.png</file>
+        <file>img/my3.png</file>
     </qresource>
 </RCC>

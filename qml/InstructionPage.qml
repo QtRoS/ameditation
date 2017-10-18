@@ -31,9 +31,9 @@ Page {
                 }
 
                 Label {
-                    text: qsTr("Instruction")
+                    text: qsTr("Инструкции")
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground: Material.LightGreen
+                    Material.foreground: optionsKeeper.accentColor
                     font.pointSize: 14
                     elide: Text.ElideRight
                 }

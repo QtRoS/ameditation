@@ -20,7 +20,7 @@ Page {
                 right: parent.right
             }
             height: btnLayout.height + 30
-            Material.background: "white"
+            Material.background: optionsKeeper.contrastColor
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationListPage.qml"))
 
             Column {
@@ -40,8 +40,16 @@ Page {
                     Repeater {
                         model: 4
 
-                        Image {
-                            source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
+//                        Image {
+//                            source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/my%1.png".arg(index))// cutmypic Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
+//                            width: 50
+//                            height: 50
+//                            smooth: true
+//                            //mipmap: true
+//                        }
+                        RoundedIcon {
+                            source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/my%1.png".arg(index))// cutmypic Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
+                            color: meditationModel.get(index).color
                             width: 50
                             height: 50
                         }
@@ -49,14 +57,15 @@ Page {
                 }
 
                 Label {
-                    text: qsTr("Meditations")
+                    text: qsTr("Медитации")
                     font.pointSize: 14
-                    Material.foreground: Material.LightGreen
+                    //Material.foreground: optionsKeeper.accentColor
+                    color: "dimgrey"
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
                 Label {
-                    text: "Take a look at meditation list, select one and relax"
+                    text: "В данном разделе Вы можете ознакомиться со списком медитаций, чтобы затем выбрать себе подходящую"
                     anchors {
                         left: parent.left
                         right: parent.right
@@ -71,6 +80,7 @@ Page {
 
         delegate: CommonListItem {
             iconSource: model.icon
+            iconColor: "lightgrey"
             title: model.title
             subtitle: model.subtitle
 
@@ -83,22 +93,22 @@ Page {
 
         ListElement {
             icon: "file:/home/mrqtros/Downloads/x8PhM.png"
-            title: "Instruction"
-            subtitle: "Bla bla bla"
+            title: "Инструкции"
+            subtitle: "Настоятельно рекомендуется прочесть перед использованием"
             page: "qrc:/qml/InstructionPage.qml"
         }
 
         ListElement {
             icon: "file:/home/mrqtros/Downloads/x8PhM.png"
-            title: "About author"
-            subtitle: "About author description"
+            title: "Об авторе"
+            subtitle: "Информация об авторе методик"
             page: "qrc:/qml/AboutPage.qml"
         }
 
         ListElement {
             icon: "file:/home/mrqtros/Downloads/x8PhM.png"
-            title: "Sign up"
-            subtitle: "Sign up description"
+            title: "Записаться на прием"
+            subtitle: "Информация по поводу записи на прием"
             page: "qrc:/qml/SignUpPage.qml"
         }
     }

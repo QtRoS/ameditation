@@ -13,42 +13,13 @@ Page {
 
         delegate: CommonListItem {
             iconSource: model.icon
+            iconColor: model.color
             title: model.title
+            titleColor: model.color
             subtitle: model.subtitle
 
-            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationPage.qml"), {"meditationId": model.meditation, "meditationTitle": model.title})
-        }
-    }
-
-    ListModel {
-        id: meditationModel
-
-        ListElement {
-            icon: "file:/home/mrqtros/Downloads/x8PhM.png"
-            title: "Relax"
-            subtitle: "Bla bla bla"
-            meditation: "1"
-        }
-
-        ListElement {
-            icon: "file:/home/mrqtros/Downloads/x8PhM.png"
-            title: "Power"
-            subtitle: "About author description"
-            meditation: "2"
-        }
-
-        ListElement {
-            icon: "file:/home/mrqtros/Downloads/x8PhM.png"
-            title: "Love"
-            subtitle: "Sign up description"
-            meditation: "3"
-        }
-
-        ListElement {
-            icon: "file:/home/mrqtros/Downloads/x8PhM.png"
-            title: "Mood"
-            subtitle: "Sign up description"
-            meditation: "4"
+            onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationPage.qml"),
+                                      {"modelIndex": model.index}) // , "meditationTitle": model.title, "meditationDetails": model.description
         }
     }
 }

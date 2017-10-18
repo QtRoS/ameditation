@@ -31,9 +31,9 @@ Page {
                 }
 
                 Label {
-                    text: qsTr("About")
+                    text: qsTr("Об авторе")
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground: Material.LightGreen
+                    Material.foreground: optionsKeeper.accentColor
                     font.pointSize: 14
                     elide: Text.ElideRight
                 }

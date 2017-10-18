@@ -6,13 +6,18 @@ import QtMultimedia 5.9
 
 Page {
 
-    property string meditationId: ""
-    property string meditationTitle: ""
+    property int modelIndex: -1
+    property var meditation
+
+    onModelIndexChanged: {
+        console.log("modelIndex", modelIndex)
+        meditation = meditationModel.get(modelIndex)
+    }
 
     Audio {
         id: audioPlayback
         property bool isPlaying: audioPlayback.playbackState == Audio.PlayingState
-        source: "qrc:/carthago.mp3"
+        source: "qrc:/media/%1.mp3".arg(meditation.meditation)
         onStatusChanged: console.log("onStatusChanged", status, errorString, error)
     }
 
@@ -42,22 +47,21 @@ Page {
                 }
 
                 Label {
-                    text: meditationTitle
+                    text: meditation.title
+                    color: meditation.color
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground: Material.LightGreen
+                    Material.foreground: optionsKeeper.accentColor
                     font.pointSize: 14
                     elide: Text.ElideRight
                 }
 
                 Label {
-                    text: "Работа с РСУБД является одной из важнейших частей разработки веб-приложений. Дискусcии о том, как правильно представить данные из БД в приложении ведутся давно. Существует два основных паттерна для работы с БД: ActiveRecord и DataMapper. ActiveRecord считается многими программистами антипаттерном. Утверждается, что объекты ActiveRecord нарушают принцип единственной обязанности (SRP). DataMapper считается единственно верным подходом к обеспечению персистентности в ООП. Первая часть статьи посвящена тому, что DataMapper далеко не идеален как концептуально, так и на практике. Вторая часть статьи показывает, как можно улучшить свой код используя существующие реализации ActiveRecord и несколько простых правил. Представленный материал относится главным образом к РСУБД, поддерживающим транзакции."
+                    text: meditation.description
                     width: parent.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignJustify
-                    //Material.foreground: Material.LightGreen
                     Material.foreground: Material.Grey
                     textFormat: Text.PlainText
-                    //font.pointSize: 12
                 }
 
                 Item {
@@ -77,6 +81,7 @@ Page {
                         to: audioPlayback.duration
                         value: audioPlayback.position
                         onMoved: audioPlayback.seek(value)
+                        Material.accent: meditation.color //optionsKeeper.accentColor
                     }
 
                     Button {
@@ -96,10 +101,13 @@ Page {
                 }
 
                 Label {
-                    text: "(%1:%2/%3:%4)".arg(Math.floor(audioPlayback.position/60000))
-                                         .arg(audioPlayback.position%60000)
-                                         .arg(Math.floor(audioPlayback.duration/60000))
-                                         .arg(audioPlayback.duration%60000)
+                    text: {
+                        var positionInSecs = Math.round(audioPlayback.position/1000)
+                        var durationInSecs = Math.round(audioPlayback.duration/1000)
+                        return "(%1 / %2)".arg(Qt.formatTime(new Date(2017, 0, 0, 0, Math.floor(positionInSecs/60), Math.floor(positionInSecs%60), 0), "mm:ss"))
+                                        .arg(Qt.formatTime(new Date(2017, 0, 0, 0, Math.floor(durationInSecs/60), Math.floor(durationInSecs%60), 0), "mm:ss"))
+                    }
+
                     anchors.horizontalCenter: parent.horizontalCenter
                     Material.foreground: Material.Grey
                     textFormat: Text.PlainText
