@@ -51,8 +51,8 @@ QtObject {
     }
 
     property Settings settings: Settings {
-        property int appTheme: Material.Light
-        property int accentColor: optionsKeeper.accentColor
+        property int appTheme: 0//Material.Light
+        property int accentColor: 14
         property color contrastColor: "white"
     }
 }

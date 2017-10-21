@@ -6,18 +6,27 @@ import QtMultimedia 5.9
 
 Page {
 
-    property int modelIndex: -1
-    property var meditation
+//    property int modelIndex: -1
+//    property var meditation
 
-    onModelIndexChanged: {
-        console.log("modelIndex", modelIndex)
-        meditation = meditationModel.get(modelIndex)
-    }
+//    onModelIndexChanged: {
+//        var obj = meditationModel.get(modelIndex)
+//        meditation = {
+//            "meditation": obj.meditation,
+//            "title": obj.title,
+//            "description": obj.description,
+//            "color": obj.color
+//        }
+//    }
+    property string meditId: ""
+    property string meditTitle: ""
+    property string meditDesc: ""
+    property string meditColor: ""
 
     Audio {
         id: audioPlayback
         property bool isPlaying: audioPlayback.playbackState == Audio.PlayingState
-        source: "qrc:/media/%1.mp3".arg(meditation.meditation)
+        source: "qrc:/media/%1.mp3".arg(meditId)
         onStatusChanged: console.log("onStatusChanged", status, errorString, error)
     }
 
@@ -47,8 +56,8 @@ Page {
                 }
 
                 Label {
-                    text: meditation.title
-                    color: meditation.color
+                    text: meditTitle
+                    color: meditColor
                     anchors.horizontalCenter: parent.horizontalCenter
                     Material.foreground: optionsKeeper.accentColor
                     font.pointSize: 14
@@ -56,11 +65,11 @@ Page {
                 }
 
                 Label {
-                    text: meditation.description
+                    text: meditDesc
                     width: parent.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignJustify
-                    Material.foreground: Material.Grey
+                    Material.foreground:Material.Grey
                     textFormat: Text.PlainText
                 }
 
@@ -81,7 +90,7 @@ Page {
                         to: audioPlayback.duration
                         value: audioPlayback.position
                         onMoved: audioPlayback.seek(value)
-                        Material.accent: meditation.color //optionsKeeper.accentColor
+                        Material.accent: meditColor //optionsKeeper.accentColor
                     }
 
                     Button {
@@ -109,7 +118,7 @@ Page {
                     }
 
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground: Material.Grey
+                    Material.foreground:Material.Grey
                     textFormat: Text.PlainText
                 }
             }

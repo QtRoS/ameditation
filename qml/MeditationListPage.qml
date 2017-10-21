@@ -19,7 +19,8 @@ Page {
             subtitle: model.subtitle
 
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationPage.qml"),
-                                      {"modelIndex": model.index}) // , "meditationTitle": model.title, "meditationDetails": model.description
+                                      {"meditId": model.meditation, "meditDesc": model.description,
+                                          "meditTitle": model.title, "meditColor": model.color}) // ,
         }
     }
 }

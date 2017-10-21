@@ -20,7 +20,7 @@ Page {
                 right: parent.right
             }
             height: btnLayout.height + 30
-            Material.background: optionsKeeper.contrastColor
+            Material.background: "white" //optionsKeeper.contrastColor
             onClicked: stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationListPage.qml"))
 
             Column {
@@ -38,18 +38,11 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     spacing: (mainButton.width - 4 * 50) / 6
                     Repeater {
-                        model: 4
+                        model: meditationModel
 
-//                        Image {
-//                            source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/my%1.png".arg(index))// cutmypic Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
-//                            width: 50
-//                            height: 50
-//                            smooth: true
-//                            //mipmap: true
-//                        }
                         RoundedIcon {
-                            source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/my%1.png".arg(index))// cutmypic Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
-                            color: meditationModel.get(index).color
+                            source: Qt.resolvedUrl("qrc:/img/my%1.png".arg(model.index))// cutmypic Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
+                            color: model.color
                             width: 50
                             height: 50
                         }
@@ -59,7 +52,7 @@ Page {
                 Label {
                     text: qsTr("Медитации")
                     font.pointSize: 14
-                    //Material.foreground: optionsKeeper.accentColor
+                    Material.foreground: optionsKeeper.accentColor
                     color: "dimgrey"
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -71,7 +64,7 @@ Page {
                         right: parent.right
                     }
                     horizontalAlignment: Text.AlignHCenter
-                    Material.foreground: Material.Grey
+                    Material.foreground:Material.Grey
                     font.pointSize: 11
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
@@ -92,21 +85,21 @@ Page {
         id: mainPageModel
 
         ListElement {
-            icon: "file:/home/mrqtros/Downloads/x8PhM.png"
+            icon: "qrc:/img/x8PhM.png"
             title: "Инструкции"
             subtitle: "Настоятельно рекомендуется прочесть перед использованием"
             page: "qrc:/qml/InstructionPage.qml"
         }
 
         ListElement {
-            icon: "file:/home/mrqtros/Downloads/x8PhM.png"
+            icon: "qrc:/img/x8PhM.png"
             title: "Об авторе"
             subtitle: "Информация об авторе методик"
             page: "qrc:/qml/AboutPage.qml"
         }
 
         ListElement {
-            icon: "file:/home/mrqtros/Downloads/x8PhM.png"
+            icon: "qrc:/img/x8PhM.png"
             title: "Записаться на прием"
             subtitle: "Информация по поводу записи на прием"
             page: "qrc:/qml/SignUpPage.qml"

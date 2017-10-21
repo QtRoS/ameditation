@@ -16,22 +16,9 @@ Button {
         right: parent.right
     }
     height: 80
-    Material.background: optionsKeeper.contrastColor
-    //Material.elevation: 2
+    Material.background: "white" //optionsKeeper.contrastColor
+    Material.elevation: 2
 
-//    Rectangle { color: "transparent"; anchors.fill: parent; border.width: 1; border.color: "red" }
-
-//    Image {
-//        id: imgIcon
-//        anchors {
-//            left: parent.left
-//            leftMargin: 10
-//            verticalCenter: parent.verticalCenter
-//        }
-
-//        width: 60
-//        height: 60
-//    }
     RoundedIcon {
         id: imgIcon
         anchors {
@@ -43,7 +30,6 @@ Button {
         width: 60
         height: 60
     }
-
 
     Column {
         anchors {
@@ -58,7 +44,7 @@ Button {
             id: lblTitle
             width: parent.width
             color: "dimgrey"
-            //Material.foreground: optionsKeeper.accentColor
+            Material.foreground: optionsKeeper.accentColor
             font.pointSize: 14
             elide: Text.ElideRight
             Rectangle { // DBG
@@ -71,7 +57,7 @@ Button {
             id: lblSubtitle
             width: parent.width
             //Material.foreground: optionsKeeper.accentColor
-            Material.foreground: Material.Grey
+            Material.foreground:Material.Grey
             font.pointSize: 11
             elide: Text.ElideRight
             Rectangle { // DBG

@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.2
+//import QtQuick.Controls.Material 2.2
 
 ApplicationWindow {
     visible: true
@@ -15,19 +15,9 @@ ApplicationWindow {
                          stackView.currentItem.meditation.color : "#ffffff"
     }
 
-    // Material.theme: optionsKeeper.appTheme
-    //Material.theme: Material.Light
-
     Component.onCompleted: {
-        //optionsKeeper.appTheme = Material.Light
-
-        optionsKeeper.contrastColor = "white"
-        optionsKeeper.accentColor = Material.Amber
-
-        //optionsKeeper.contrastColor = "black"
-        //optionsKeeper.accentColor = Material.DeepPurple
-
-        console.log("optionsKeeper.accentColor", optionsKeeper.accentColor)
+        "white" //optionsKeeper.contrastColor = "white"
+        //optionsKeeper.accentColor =Material.Amber
     }
 
     StackView {
@@ -37,7 +27,11 @@ ApplicationWindow {
         Component.onCompleted: push(mainPage)
         MainPage { id: mainPage }
 
-        //onCurrentItemChanged: commonHeader.customColor = currentItem.hasOwnProperty("meditation") ? currentItem.meditation.color : "#ffffff"
+        Keys.onBackPressed: {
+            event.accepted = stackView.depth > 1
+            stackView.pop()
+            console.log("stackView.depth", stackView.depth, event.accepted)
+        }
     }
 
     OptionsKeeper {

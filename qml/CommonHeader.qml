@@ -16,7 +16,7 @@ Pane {
         spacing: 10
 
         Image {
-            source: Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
+            source: Qt.resolvedUrl("qrc:/img/x8PhM.png")
             sourceSize {
                 width: 70
                 height: 70
@@ -31,7 +31,7 @@ Pane {
         Column {
             Label {
                 text: qsTr("Антонов Александр")
-                Material.foreground: optionsKeeper.contrastColor
+                Material.foreground: "white" //optionsKeeper.contrastColor
                 font.pointSize: 10
                 Rectangle {
                     color: "#00ff0000"
@@ -41,7 +41,7 @@ Pane {
 
             Label {
                 text: qsTr("МЕДИТАЦИИ 3")
-                Material.foreground: optionsKeeper.contrastColor
+Material.foreground: "white" //optionsKeeper.contrastColor
                 font.pointSize: 14
                 elide: Text.ElideRight
                 Rectangle {
@@ -52,7 +52,7 @@ Pane {
 
             Label {
                 text: qsTr("Психолог - психотерапевт")
-                Material.foreground: optionsKeeper.contrastColor
+Material.foreground: "white" //optionsKeeper.contrastColor
                 font.pointSize: 10
                 elide: Text.ElideRight
                 Rectangle {

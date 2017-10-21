@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>media/deep_relax.mp3</file>
+        <file>media/power.mp3</file>
+        <file>media/love.mp3</file>
+        <file>media/mood.mp3</file>
+        <file>media/relax.mp3</file>
     </qresource>
 </RCC>
