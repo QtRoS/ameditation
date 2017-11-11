@@ -27,7 +27,10 @@ Page {
         id: audioPlayback
         property bool isPlaying: audioPlayback.playbackState == Audio.PlayingState
         source: "qrc:/media/%1.mp3".arg(meditId)
-        onStatusChanged: console.log("onStatusChanged", status, errorString, error)
+        onStatusChanged: {
+            console.log("Audio onStatusChanged", status, errorString, error)
+            console.log("Audio duration: %1(s) %2(m)".arg(duration / 1000).arg(duration / 1000 / 60))
+        }
     }
 
     Pane {
@@ -90,17 +93,25 @@ Page {
                         to: audioPlayback.duration
                         value: audioPlayback.position
                         onMoved: audioPlayback.seek(value)
-                        Material.accent: meditColor //optionsKeeper.accentColor
+                        Material.accent: meditColor
                     }
 
                     Button {
                         id: playBtn
 
+                        Image {
+                            anchors.centerIn: parent
+                            width: 24
+                            height: width
+
+                            source: Qt.resolvedUrl(audioPlayback.isPlaying ? "qrc:/img/pause-round-button.png" : "qrc:/img/play-round-button.png")
+                        }
+
                         anchors {
                             right: parent.right
                             verticalCenter: parent.verticalCenter
                         }
-                        text: audioPlayback.isPlaying ? qsTr("⏸️") : qsTr("▶️")
+
                         onClicked: {
                             if (audioPlayback.isPlaying)
                                 audioPlayback.pause()

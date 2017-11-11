@@ -11,13 +11,8 @@ ApplicationWindow {
 
     header: CommonHeader {
         id: commonHeader
-        customColor: (stackView.currentItem && stackView.currentItem.hasOwnProperty("meditation")) ?
-                         stackView.currentItem.meditation.color : "#ffffff"
-    }
-
-    Component.onCompleted: {
-        "white" //optionsKeeper.contrastColor = "white"
-        //optionsKeeper.accentColor =Material.Amber
+        customColor: (stackView.currentItem && stackView.currentItem.hasOwnProperty("meditColor")) ?
+                         stackView.currentItem.meditColor : "#ffffff"
     }
 
     StackView {

@@ -29,6 +29,7 @@ Pane {
         }
 
         Column {
+            anchors.verticalCenter: parent.verticalCenter
             Label {
                 text: qsTr("Антонов Александр")
                 Material.foreground: "white" //optionsKeeper.contrastColor
@@ -41,7 +42,7 @@ Pane {
 
             Label {
                 text: qsTr("МЕДИТАЦИИ 3")
-Material.foreground: "white" //optionsKeeper.contrastColor
+                Material.foreground: "white" //optionsKeeper.contrastColor
                 font.pointSize: 14
                 elide: Text.ElideRight
                 Rectangle {
@@ -52,7 +53,7 @@ Material.foreground: "white" //optionsKeeper.contrastColor
 
             Label {
                 text: qsTr("Психолог - психотерапевт")
-Material.foreground: "white" //optionsKeeper.contrastColor
+                Material.foreground: "white" //optionsKeeper.contrastColor
                 font.pointSize: 10
                 elide: Text.ElideRight
                 Rectangle {

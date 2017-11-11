@@ -41,7 +41,7 @@ Page {
                         model: meditationModel
 
                         RoundedIcon {
-                            source: Qt.resolvedUrl("qrc:/img/my%1.png".arg(model.index))// cutmypic Qt.resolvedUrl("file:/home/mrqtros/Downloads/x8PhM.png")
+                            source: Qt.resolvedUrl("qrc:/img/my%1.png".arg(model.index))
                             color: model.color
                             width: 50
                             height: 50
@@ -85,21 +85,21 @@ Page {
         id: mainPageModel
 
         ListElement {
-            icon: "qrc:/img/x8PhM.png"
+            icon: "qrc:/img/dotted-list.png"
             title: "Инструкции"
             subtitle: "Настоятельно рекомендуется прочесть перед использованием"
             page: "qrc:/qml/InstructionPage.qml"
         }
 
         ListElement {
-            icon: "qrc:/img/x8PhM.png"
+            icon: "qrc:/img/increase-font-size.png"
             title: "Об авторе"
             subtitle: "Информация об авторе методик"
             page: "qrc:/qml/AboutPage.qml"
         }
 
         ListElement {
-            icon: "qrc:/img/x8PhM.png"
+            icon: "qrc:/img/complete.png"
             title: "Записаться на прием"
             subtitle: "Информация по поводу записи на прием"
             page: "qrc:/qml/SignUpPage.qml"

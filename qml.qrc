@@ -18,5 +18,15 @@
         <file>img/my2.png</file>
         <file>img/my3.png</file>
         <file>img/x8PhM.png</file>
+        <file>img/play-round-button.png</file>
+        <file>img/stop-round-button.png</file>
+        <file>img/settings-wheel.png</file>
+        <file>img/origami-paper-plane.png</file>
+        <file>img/complete.png</file>
+        <file>img/elegant-watch.png</file>
+        <file>img/pause-round-button.png</file>
+        <file>img/dotted-list.png</file>
+        <file>img/three-dots-in-speech-bubble-.png</file>
+        <file>img/increase-font-size.png</file>
     </qresource>
 </RCC>
