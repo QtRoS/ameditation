@@ -33,7 +33,7 @@ Pane {
             Label {
                 text: qsTr("Антонов Александр")
                 Material.foreground: "white" //optionsKeeper.contrastColor
-                font.pointSize: 10
+                font.pixelSize: 14
                 Rectangle {
                     color: "#00ff0000"
                     anchors.fill: parent
@@ -43,7 +43,7 @@ Pane {
             Label {
                 text: qsTr("МЕДИТАЦИИ 3")
                 Material.foreground: "white" //optionsKeeper.contrastColor
-                font.pointSize: 14
+                font.pixelSize: 18
                 elide: Text.ElideRight
                 Rectangle {
                     color: "#00ff0000"
@@ -54,7 +54,7 @@ Pane {
             Label {
                 text: qsTr("Психолог - психотерапевт")
                 Material.foreground: "white" //optionsKeeper.contrastColor
-                font.pointSize: 10
+                font.pixelSize: 14
                 elide: Text.ElideRight
                 Rectangle {
                     color: "#00ff0000"
