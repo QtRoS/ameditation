@@ -45,7 +45,7 @@ Button {
             width: parent.width
             color: "dimgrey"
             Material.foreground: optionsKeeper.accentColor
-            font.pointSize: 14
+            font.pixelSize: 16
             elide: Text.ElideRight
             Rectangle { // DBG
                 color: "#00ff0000"
@@ -58,8 +58,10 @@ Button {
             width: parent.width
             //Material.foreground: optionsKeeper.accentColor
             Material.foreground:Material.Grey
-            font.pointSize: 11
+            font.pixelSize: 14
             elide: Text.ElideRight
+            maximumLineCount: 2
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             Rectangle { // DBG
                 color: "#00ff0000"
                 anchors.fill: parent
