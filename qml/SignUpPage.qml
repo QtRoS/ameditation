@@ -32,14 +32,14 @@ Page {
                 Label {
                     text: qsTr("Записться на прием")
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground: optionsKeeper.accentColor
+                    Material.foreground: Material.Amber
                     font.pointSize: 14
                     elide: Text.ElideRight
                 }
 
                 Label {
                     text: "<p>Запись на индивидуальный прием к Антонову Александру возможна в \
-разных городах России. Я предлагаю психологическую помощь по следующим направлениям:</p>\
+разных городах России. Я предлагаю психологическую помощь по следующим направлениям:</p><br>\
 <ul>\
 <li>решение жизненных трудностей</li>\
 <li>нормализация отношений</li>\

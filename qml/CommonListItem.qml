@@ -44,7 +44,7 @@ Button {
             id: lblTitle
             width: parent.width
             color: "dimgrey"
-            Material.foreground: optionsKeeper.accentColor
+            Material.foreground: Material.Amber
             font.pixelSize: 16
             elide: Text.ElideRight
             Rectangle { // DBG
@@ -56,9 +56,8 @@ Button {
         Label {
             id: lblSubtitle
             width: parent.width
-            //Material.foreground: optionsKeeper.accentColor
-            Material.foreground:Material.Grey
-            font.pixelSize: 14
+            Material.foreground: Material.Grey
+            font.pixelSize: 12
             elide: Text.ElideRight
             maximumLineCount: 2
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere

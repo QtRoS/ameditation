@@ -9,7 +9,7 @@ Pane {
     width: parent.width
     height: 80
     Material.elevation: 4
-    Material.background: customColor == "#ffffff" ? optionsKeeper.accentColor : customColor
+    Material.background: customColor == "#ffffff" ? Material.Amber : customColor
 
     Row {
         anchors.verticalCenter: parent.verticalCenter
@@ -33,7 +33,7 @@ Pane {
             Label {
                 text: qsTr("Антонов Александр")
                 Material.foreground: "white" //optionsKeeper.contrastColor
-                font.pixelSize: 14
+                font.pixelSize: 12
                 Rectangle {
                     color: "#00ff0000"
                     anchors.fill: parent
@@ -54,7 +54,7 @@ Pane {
             Label {
                 text: qsTr("Психолог - психотерапевт")
                 Material.foreground: "white" //optionsKeeper.contrastColor
-                font.pixelSize: 14
+                font.pixelSize: 12
                 elide: Text.ElideRight
                 Rectangle {
                     color: "#00ff0000"

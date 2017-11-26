@@ -29,9 +29,9 @@ ApplicationWindow {
         }
     }
 
-    OptionsKeeper {
-        id: optionsKeeper
-    }
+//    OptionsKeeper {
+//        id: optionsKeeper
+//    }
 
     MeditationModel {
         id: meditationModel

@@ -51,7 +51,7 @@ QtObject {
     }
 
     property Settings settings: Settings {
-        property int appTheme: 0//Material.Light
+        property int appTheme: 0
         property int accentColor: 14
         property color contrastColor: "white"
     }

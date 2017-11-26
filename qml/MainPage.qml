@@ -52,7 +52,6 @@ Page {
                 Label {
                     text: qsTr("Медитации")
                     font.pointSize: 14
-                    Material.foreground: optionsKeeper.accentColor
                     color: "dimgrey"
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -65,7 +64,7 @@ Page {
                     }
                     horizontalAlignment: Text.AlignHCenter
                     Material.foreground:Material.Grey
-                    font.pointSize: 11
+                    font.pixelSize: 12
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
             }

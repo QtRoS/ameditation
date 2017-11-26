@@ -6,18 +6,6 @@ import QtMultimedia 5.9
 
 Page {
 
-//    property int modelIndex: -1
-//    property var meditation
-
-//    onModelIndexChanged: {
-//        var obj = meditationModel.get(modelIndex)
-//        meditation = {
-//            "meditation": obj.meditation,
-//            "title": obj.title,
-//            "description": obj.description,
-//            "color": obj.color
-//        }
-//    }
     property string meditId: ""
     property string meditTitle: ""
     property string meditDesc: ""
@@ -62,7 +50,6 @@ Page {
                     text: meditTitle
                     color: meditColor
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground: optionsKeeper.accentColor
                     font.pointSize: 14
                     elide: Text.ElideRight
                 }
@@ -73,7 +60,6 @@ Page {
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignJustify
                     Material.foreground:Material.Grey
-                    textFormat: Text.PlainText
                 }
 
                 Item {
@@ -103,7 +89,6 @@ Page {
                             anchors.centerIn: parent
                             width: 24
                             height: width
-
                             source: Qt.resolvedUrl(audioPlayback.isPlaying ? "qrc:/img/pause-round-button.png" : "qrc:/img/play-round-button.png")
                         }
 
