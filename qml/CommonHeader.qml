@@ -16,11 +16,13 @@ Pane {
         spacing: 10
 
         Image {
-            source: Qt.resolvedUrl("qrc:/img/x8PhM.png")
+            source: Qt.resolvedUrl("qrc:/img/photo.png")
             sourceSize {
-                width: 70
-                height: 70
+                width: 140
+                height: 140
             }
+            width: 70
+            height: 70
 
             MouseArea {
                 anchors.fill: parent
