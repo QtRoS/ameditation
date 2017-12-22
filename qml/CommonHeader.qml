@@ -4,12 +4,12 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.2
 
 Pane {
-    property color customColor: "#ffffff" // Use color from options when white is set.
+    property var customColor
 
     width: parent.width
     height: 80
     Material.elevation: 4
-    Material.background: customColor == "#ffffff" ? Material.Amber : customColor
+    Material.background: customColor //== "#ffffff" ? Material.Amber : customColor
 
     Row {
         anchors.verticalCenter: parent.verticalCenter
@@ -40,17 +40,19 @@ Pane {
                     color: "#00ff0000"
                     anchors.fill: parent
                 }
+                //style: Text.Raised; styleColor: "dimgray"
             }
 
             Label {
                 text: qsTr("МЕДИТАЦИИ 3")
                 Material.foreground: "white" //optionsKeeper.contrastColor
-                font.pixelSize: 18
+                font.pixelSize: 20
                 elide: Text.ElideRight
                 Rectangle {
                     color: "#00ff0000"
                     anchors.fill: parent
                 }
+                //style: Text.Raised; styleColor: "dimgray"
             }
 
             Label {
@@ -62,6 +64,7 @@ Pane {
                     color: "#00ff0000"
                     anchors.fill: parent
                 }
+                //style: Text.Raised; styleColor: "dimgray"
             }
         }
     }

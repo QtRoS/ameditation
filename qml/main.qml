@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
-//import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material 2.2
 
 ApplicationWindow {
     visible: true
@@ -9,10 +9,12 @@ ApplicationWindow {
     height: 640
     title: qsTr("Meditations")
 
+    property bool isNightMode: false
+
     header: CommonHeader {
         id: commonHeader
-        customColor: (stackView.currentItem && stackView.currentItem.hasOwnProperty("meditColor")) ?
-                         stackView.currentItem.meditColor : "#ffffff"
+        customColor: isNightMode ? "#222222" : (stackView.currentItem && stackView.currentItem.hasOwnProperty("meditColor")) ?
+                         stackView.currentItem.meditColor : Material.Amber
     }
 
     StackView {
@@ -27,11 +29,12 @@ ApplicationWindow {
             stackView.pop()
             console.log("stackView.depth", stackView.depth, event.accepted)
         }
-    }
 
-//    OptionsKeeper {
-//        id: optionsKeeper
-//    }
+        // Night mode staff.
+        background: Rectangle { anchors.fill: parent; color: "white" }
+        layer.effect: DarkModeShader { }
+        layer.enabled: isNightMode
+    }
 
     MeditationModel {
         id: meditationModel
