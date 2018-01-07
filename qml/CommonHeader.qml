@@ -68,4 +68,21 @@ Pane {
             }
         }
     }
+
+    Image {
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+        }
+
+        width: 32
+        height: width
+        source: Qt.resolvedUrl(optionsKeeper.isNightMode ? "qrc:/img/day.png" : "qrc:/img/night.png")
+        mipmap: true
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: optionsKeeper.isNightMode = !optionsKeeper.isNightMode
+        }
+    }
 }

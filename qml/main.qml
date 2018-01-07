@@ -9,11 +9,9 @@ ApplicationWindow {
     height: 640
     title: qsTr("Meditations")
 
-    property bool isNightMode: false
-
     header: CommonHeader {
         id: commonHeader
-        customColor: isNightMode ? "#222222" : (stackView.currentItem && stackView.currentItem.hasOwnProperty("meditColor")) ?
+        customColor: optionsKeeper.isNightMode ? "#222222" : (stackView.currentItem && stackView.currentItem.hasOwnProperty("meditColor")) ?
                          stackView.currentItem.meditColor : Material.Amber
     }
 
@@ -33,10 +31,14 @@ ApplicationWindow {
         // Night mode staff.
         background: Rectangle { anchors.fill: parent; color: "white" }
         layer.effect: DarkModeShader { }
-        layer.enabled: isNightMode
+        layer.enabled: optionsKeeper.isNightMode
     }
 
     MeditationModel {
         id: meditationModel
+    }
+
+    OptionsKeeper {
+        id: optionsKeeper
     }
 }

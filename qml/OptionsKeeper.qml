@@ -4,55 +4,25 @@ import QtQuick.Controls.Material 2.2
 
 QtObject {
 
-    property int appTheme
-    property int accentColor
-    property color contrastColor
+    property bool isNightMode
 
     Component.onCompleted: {
-        appTheme = getAppTheme()
-        accentColor = getAccentColor()
-        contrastColor = getContrastColor()
+        isNightMode = getIsNightMode()
     }
 
-    onAppThemeChanged: {
-        setAppTheme(appTheme)
+    onIsNightModeChanged: {
+        setIsNightMode(isNightMode)
     }
 
-    onAccentColorChanged: {
-        setAccentColor(accentColor)
+    function getIsNightMode() {
+        return settings.isNightMode
     }
 
-    onContrastColorChanged: {
-        setContrastColor(contrastColor)
-    }
-
-    function getAppTheme() {
-        return settings.appTheme
-    }
-
-    function setAppTheme(value) {
-        settings.appTheme = value
-    }
-
-    function getAccentColor() {
-        return settings.accentColor
-    }
-
-    function setAccentColor(value) {
-        settings.accentColor = value
-    }
-
-    function getContrastColor() {
-        return settings.contrastColor
-    }
-
-    function setContrastColor(value) {
-        settings.contrastColor = value
+    function setIsNightMode(value) {
+        settings.isNightMode = value
     }
 
     property Settings settings: Settings {
-        property int appTheme: 0
-        property int accentColor: 14
-        property color contrastColor: "white"
+        property bool isNightMode: false
     }
 }

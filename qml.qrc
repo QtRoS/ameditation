@@ -30,5 +30,7 @@
         <file>img/increase-font-size.png</file>
         <file>img/photo.png</file>
         <file>qml/DarkModeShader.qml</file>
+        <file>img/day.png</file>
+        <file>img/night.png</file>
     </qresource>
 </RCC>
