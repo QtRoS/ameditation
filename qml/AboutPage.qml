@@ -57,7 +57,7 @@ Material.elevation: 2
 <a href='http://antonovpsy.ru/' target='_blank'>сайт психолога</a></p><br>\
 <p>По просьбам желающих оставляю ниже ссылку на страницу с пожертвованиями (благодарностями) автору проекта: \
 <a href='http://antonovpsy.ru/donate.php' target='_blank'>БЛАГОДАРНОСТЬ АВТОРУ</a></p><br>\
-Выражаю искреннюю благодарность Роману Щекину за помощь в написании и оформлении приложения."
+Выражаю искреннюю благодарность Роману Щекину (qtros@yandex.ru) за помощь в написании и оформлении приложения."
                     width: parent.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignJustify
