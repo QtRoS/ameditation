@@ -50,7 +50,7 @@ Page {
                     text: meditTitle
                     color: meditColor
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pointSize: 14
+                    font.pixelSize: 16
                     elide: Text.ElideRight
                 }
 
