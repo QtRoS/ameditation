@@ -85,6 +85,13 @@ Page {
 
         ListElement {
             icon: "qrc:/img/dotted-list.png"
+            title: "Скачать медитации"
+            subtitle: "Дополнительные медитации в дополнение к стандартным"
+            page: "qrc:/qml/DownloadPage.qml"
+        }
+
+        ListElement {
+            icon: "qrc:/img/dotted-list.png"
             title: "Инструкции"
             subtitle: "Настоятельно рекомендуется прочесть перед использованием"
             page: "qrc:/qml/InstructionPage.qml"

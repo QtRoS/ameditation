@@ -13,6 +13,7 @@
         <file>qml/OptionsKeeper.qml</file>
         <file>qml/RoundedIcon.qml</file>
         <file>qml/MeditationModel.qml</file>
+        <file>qml/DownloadPage.qml</file>
         <file>qml/databasemodule.js</file>
         <file>img/my0.png</file>
         <file>img/my1.png</file>

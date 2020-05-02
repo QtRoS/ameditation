@@ -17,6 +17,7 @@ function openStdDataBase() {
                     description	TEXT, \
                     icon	TEXT, \
                     meditation	TEXT, \
+                    url	TEXT, \
                     status	TEXT);")
             }}
 //            ,{'from': "1.0", 'to': "1.1", 'ops': function(transaction) {
@@ -57,61 +58,64 @@ function openStdDataBase() {
     return gDbCache
 }
 
-function checkTableExists(transaction /* and additional string keys */) {
-    transaction.executeSql('PRAGMA foreign_keys = ON;')   // enable foreign key support
-    transaction.executeSql("CREATE TABLE IF NOT EXISTS feed  (id  INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,source  TEXT  NULL,title  TEXT  NULL,link  TEXT  NULL, description  TEXT  NULL, status  char(1)  NULL DEFAULT '0', pubdate  INTEGER  NULL,image  TEXT  NULL, count INTEGER NULL DEFAULT 0);")
-    transaction.executeSql("CREATE TABLE IF NOT EXISTS tag  (id  INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,name  TEXT  NOT NULL UNIQUE );")
-    transaction.executeSql("CREATE TABLE IF NOT EXISTS feed_tag  (id  INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,feed_id  INTEGER  NULL,tag_id  INTEGER  NULL,FOREIGN KEY(feed_id) REFERENCES feed(id) on delete cascade);")
-    transaction.executeSql("CREATE TABLE IF NOT EXISTS article ( id  INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL, title  TEXT  NULL, content TEXT NULL, link  TEXT  NULL, description  TEXT  NULL, pubdate  INTEGER  NULL, status  char(1)  NULL DEFAULT '0', favourite  char(1)  NULL DEFAULT '0', image  TEXT  NULL, guid TEXT NULL, feed_id  INTEGER  NULL,count INTEGER NULL DEFAULT 0, media_groups TEXT NULL, author TEXT NULL);")
-}
 
-function adjustDb(dbParams) {
-
+function getMeditations() {
     var db = openStdDataBase()
     var dbResult
 
-    // Update scheme mechanism - step by step updating DB to the latest version.
-    // WARNING: Don't add 'break' statement.
-    switch (dbParams.oldDbVersion) {
-        case 1.1:
-            // Add new column - author.
-            db.transaction(function(tx) {
-                dbResult = tx.executeSql("alter table article add author text")
-                console.log("Database updated: ", JSON.stringify(dbResult))
-            })
-            dbParams.newDbVersion = 1.1
-        case 1.2:
-            dbParams.newDbVersion = 1.2
-    }
-
-    var tagCount = 0
     db.transaction(function(tx) {
-        dbResult = tx.executeSql("SELECT count(*) AS tagCount FROM feed_tag")
-        tagCount = dbResult.rows.item(0).tagCount
+        dbResult = tx.executeSql("SELECT * FROM meditations")
+        console.log("meditations SELECTED: ", dbResult.rows.length)
     })
 
-    if (tagCount === 0) {
-        addTag("Ubuntu")
-        addFeed("Developer" , "http://developer.ubuntu.com/feed/")
-        addFeed("Design" , "http://design.canonical.com/feed/")
-        addFeedTag(1, 1)
-        addFeedTag(2, 1)
-        addTag("Canonical")
-        addFeed("Voices" , "http://voices.canonical.com/feed/atom/")
-        addFeed("Insights" , "http://insights.ubuntu.com/feed/")
-        addFeed("Blog" , "http://blog.canonical.com/feed/")
-        addFeedTag(3, 2)
-        addFeedTag(4, 2)
-        addFeedTag(5, 2)
-
-        // MainView must refresh articles.
-        dbParams.isRefreshRequired = true
-    }
+    return dbResult;
 }
 
-/* feed operations
- * include select, insert, update and delete operations
- */
+// insert
+function syncMeditations(objects)
+{
+    var db = openStdDataBase()
+    db.transaction(function (tx) {
+        for (var i = 0; i < objects.length; i++) {
+            var obj = objects[i]
+            var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
+            if (dbResult.rows.length > 0) {
+                console.log("Database, addMeditations: already exist with meditation: ", obj.meditation)
+                continue
+            }
+
+            dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, status) VALUES(?, ?, ?, ?, ?, ?, ?)',
+                                     [obj.title, obj.subtitle, obj.description,obj. icon, obj.meditation, obj.url, 'NEW'])  // TODO status
+            console.log("meditation INSERT ID: ", dbResult.insertId)
+        }
+    })
+
+    // TODO prune non existing
+//    db.transaction(function (tx) {
+//        for (var i = 0; i < meditations.length; i++) {
+//            var obj = objects[i]
+//            var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
+//            if (dbResult.rows.length > 0) {
+//                console.log("Database, addMeditations: already exist with meditation: ", obj.meditation)
+//                continue
+//            }
+
+//            dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, status) VALUES(?, ?, ?, ?, ?, ?)',
+//                                     [obj.title, obj.subtitle, obj.description,obj. icon, obj.meditation, 'NEW'])  // TODO status
+//            console.log("meditation INSERT ID: ", dbResult.insertId)
+//        }
+//    })
+}
+
+
+
+
+
+
+
+
+
+
 // select
 function loadFeeds()
 {

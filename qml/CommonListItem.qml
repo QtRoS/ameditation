@@ -11,11 +11,14 @@ Button {
     property alias titleColor: lblTitle.color
     property alias subtitle: lblSubtitle.text
 
+    property bool extendedMode: false
+
     anchors {
         left: parent.left
         right: parent.right
     }
-    height: 80
+
+    height: extendedMode ? 120 : 80
     Material.background: "white" //optionsKeeper.contrastColor
     Material.elevation: 2
 
@@ -25,6 +28,7 @@ Button {
             left: parent.left
             leftMargin: 10
             verticalCenter: parent.verticalCenter
+            verticalCenterOffset: extendedMode ? -20 : 0
         }
 
         width: 60
@@ -38,6 +42,7 @@ Button {
             right: parent.right
             rightMargin: 5
             verticalCenter: parent.verticalCenter
+            verticalCenterOffset: extendedMode ? -20 : 0
         }
 
         Label {
