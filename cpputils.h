@@ -21,6 +21,7 @@ public:
     Q_INVOKABLE void copyToClipboard(const QString& text) const;
     Q_INVOKABLE QString prependWithDownloadsPath(const QString& fileName) const;
     Q_INVOKABLE bool openUrlExternally(const QString& url) const;
+    Q_INVOKABLE bool removeFile(const QString& fileName) const;
 
     static QObject *cppUtilsSingletoneProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
 

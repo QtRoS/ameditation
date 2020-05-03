@@ -84,7 +84,7 @@ Page {
         id: mainPageModel
 
         ListElement {
-            icon: "qrc:/img/dotted-list.png"
+            icon: "qrc:/img/settings-wheel.png"
             title: "Скачать медитации"
             subtitle: "Дополнительные медитации в дополнение к стандартным"
             page: "qrc:/qml/DownloadPage.qml"

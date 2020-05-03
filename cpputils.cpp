@@ -40,6 +40,19 @@ bool CppUtils::openUrlExternally(const QString &url) const
     return QDesktopServices::openUrl(QUrl(url));
 }
 
+bool CppUtils::removeFile(const QString &fileName) const
+{
+    QFileInfo fi(fileName);
+
+    if (!fi.exists())
+    {
+        qCWarning(CppSingletone) << "Local file doesn't exist:" << fileName;
+        return false;
+    }
+
+    return QFile::remove(fileName);
+}
+
 QObject *CppUtils::cppUtilsSingletoneProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
     Q_UNUSED(engine)

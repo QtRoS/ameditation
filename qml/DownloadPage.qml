@@ -1,66 +1,16 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.2
 
 import AMeditation.CppUtils 1.0
-import "databasemodule.js" as DB
 import "jsmodule.js" as JS
 
 Page {
 
     property var downloadModel: transferManager.transferModel
 
-    Component.onCompleted: {
-
-        // TODO make web request
-        var webItems = [
-            {
-                "title": "Транс - мотивация",
-                "subtitle": "Позволяет получить отдых и расслабление, а так же укрепить мотивацию для достижения целей",
-                "description": "Предлагаю вашему вниманию транс (медитацию), который вы можете слушать раз в два, три дня. Он будет полезен каждому, поскольку позволяет получить отдых и расслабление, а так же укрепить мотивацию для достижения целей. В результате прослушивания этого транса (медитации), вы сможете получить эффект глубокого физического и эмоционального расслабления, который сравним с тремя - четырьмя часами ночного сна.",
-                "icon": "",
-                "meditation": "trans_motivation",
-                "url": "http://antonovpsy.ru//trans/mp3/trans_motivation.mp3"
-            }
-            ,{
-                "title": "Медитативный настрой",
-                "subtitle": "Всего лишь 20 минут, проведённых в спокойной обстановке и прослушивание данного настроя дадут возможность получить отдых, зарядиться ресурсом как после 2-3 часового дневного сна",
-                "description": "Поэтому методики самовосстановления (трансы и медитации), которые можно отнести к психогигиене, становятся очень востребованными. Всего лишь 20 минут, проведённых в спокойной обстановке и прослушивание данного настроя дадут возможность получить отдых, зарядиться ресурсом как после 2-3 часового дневного сна. Кроме того, данные образы обладают выраженным лечебным эффектом, что очень рекомендовано применять пациентам с хроническими заболеваниями. Для эффективного прослушивания позаботьтесь о том, чтобы вам никто не мешал. Найдите удобное место, устройтесь поудобнее и включите аудиозапись. Лучше всего это сделать через наушники.",
-                "icon": "",
-                "meditation": "med_mood",
-                "url": "http://www.psy-syzran.ru/audio/audio.mp3"
-            }
-        ]
-
-        DB.syncMeditations(webItems)
-        var syncedItems = DB.getMeditations()
-
-        var itemsToDisplay = []
-        for (var i = 0; i < syncedItems.rows.length; i++) {
-            var syncedItem = syncedItems.rows.item(i)
-
-            var artObj = {
-                "title": syncedItem.title,
-                "subtitle": syncedItem.subtitle,
-                "description": syncedItem.description,
-                "icon": syncedItem.icon,
-                "meditation": syncedItem.meditation,
-                "url": syncedItem.url,
-
-                "status": JS.STATUS_INITIAL,
-                "localUrl" : "",
-                "current" : 0,
-                "total" : 0
-            }
-
-            itemsToDisplay.push(artObj)
-        }
-
-        console.log("itemsToDisplay", JSON.stringify(itemsToDisplay))
-        downloadModel.append(itemsToDisplay)
-    }
-
+    Component.onCompleted: transferManager.refresh()
     property bool listRequestInProgress: true
 
     ListView {
@@ -72,11 +22,17 @@ Page {
 
         delegate: CommonListItem {
             extendedMode: true
-            iconSource: "qrc:/img/my1.png"
-//            iconColor: model.color
-            title: model.title + ' ' + model.status
-//            titleColor: model.color
+            iconSource: model.icon
+            iconColor: model.color
+            title: model.title // + ' ' + model.status
+            titleColor: model.color
             subtitle: model.subtitle
+
+            onClicked: {
+                dialog.text = model.description
+                dialog.title = model.title
+                dialog.open()
+            }
 
             Row {
                 spacing: 15
@@ -88,10 +44,11 @@ Page {
                 }
 
                 Button {
-                    text: (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED) ? "Отмена" : "Скачать" // TODO delete
                     flat: true
+                    text: (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED) ? "Отмена" : "Скачать" // TODO delete
+                    Material.foreground: "#303030"
                     enabled: model.status !== JS.STATUS_FINISHED // && model.status !== JS.STATUS_REQUESTED
-                    onPressed: {
+                    onClicked: {
                         if (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED)
                             transferManager.stop(model.index)
                         else
@@ -100,8 +57,29 @@ Page {
                 }
 
                 Button {
-                    text: "Детали"
-                    flat: true
+                    property bool warnState: false
+
+                    flat: !warnState
+                    text: warnState ? "Удалить?" : "Удалить"
+                    Material.foreground: warnState ? Material.Red : "#303030"
+                    enabled: model.status === JS.STATUS_FINISHED
+                    onClicked: {
+                        if (!warnState) {
+                            internalTimer.start()
+                            warnState = true
+                        } else {
+                            transferManager.remove(model)
+                            warnState = false
+                        }
+                    }
+
+                    Timer {
+                        id: internalTimer
+                        interval: 2000
+                        repeat: false
+                        running: false
+                        onTriggered: parent.warnState = false
+                    }
                 }
             }
 
@@ -116,6 +94,27 @@ Page {
                     left: parent.left
                     right: parent.right
                 }
+            }
+        }
+    }
+
+    Dialog {
+        id: dialog
+        property alias text: internalLabel.text
+        modal: true
+        standardButtons: Dialog.Ok
+        title: "Детали"
+
+        contentItem: Rectangle {
+            //color: "lightskyblue"
+            implicitWidth: 400
+            implicitHeight: 640
+            Label {
+                id: internalLabel
+                width: parent.width
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                horizontalAlignment: Text.AlignJustify
+                Material.foreground:Material.Grey
             }
         }
     }

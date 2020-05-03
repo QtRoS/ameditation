@@ -6,7 +6,7 @@ import QtMultimedia 5.9
 
 Page {
 
-    property string meditId: ""
+    property string meditAudioSource: ""
     property string meditTitle: ""
     property string meditDesc: ""
     property string meditColor: ""
@@ -14,7 +14,7 @@ Page {
     Audio {
         id: audioPlayback
         property bool isPlaying: audioPlayback.playbackState == Audio.PlayingState
-        source: "qrc:/media/%1.mp3".arg(meditId)
+        source: meditAudioSource
         onStatusChanged: {
             console.log("Audio onStatusChanged", status, errorString, error)
             console.log("Audio duration: %1(s) %2(m)".arg(duration / 1000).arg(duration / 1000 / 60))
@@ -59,7 +59,7 @@ Page {
                     width: parent.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignJustify
-                    Material.foreground:Material.Grey
+                    Material.foreground: Material.Grey
                 }
 
                 Item {
