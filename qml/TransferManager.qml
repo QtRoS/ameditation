@@ -8,13 +8,15 @@ Item {
     id: transferManagerRoot
 
     property ListModel transferModel: ListModel { }
+    property var theTask: null
 
     function refresh() {
-
         if (transferModel.count > 0)
             return
 
-        // TODO make web request
+//      theTask = webApi.getWebMeditations()
+
+        // TODO TMP vvvv
         var webItems = [
             {
                 "title": "Транс - мотивация",
@@ -35,6 +37,14 @@ Item {
                 "color": "#FF5722",
             }
         ]
+
+        handleWebItems(webItems)
+        // TODO TMP ^^^^
+    }
+
+    function handleWebItems(webItems) { // TODO rename handleResponse
+
+        theTask = null
 
         DB.syncMeditations(webItems)
         var syncedItems = DB.getMeditations()
@@ -172,7 +182,7 @@ Item {
                     return itm
             }
 
-            return null // TODO CHECK
+            return null
         }
 
         function changeDownloadStatus(status) {
@@ -199,6 +209,93 @@ Item {
                 DB.updateMeditation(cd.meditation, cd.status, cd.localUrl)
             }
             else d.changeDownloadStatus(JS.STATUS_ERROR)
+        }
+    }
+
+    QtObject {
+        id: webApi
+
+        /*
+            This signal emitted when result is received.
+            # resObj
+                @ task
+                    @ code
+                    @ doc
+                    @ id
+                @ response
+                    !status
+                    !statusText
+                !isError
+            # code
+         */
+        signal responseReceived(var resObj, string code)
+        readonly property bool requestLogEnabled: true
+
+        function getWebMeditations() {
+            var baseUrl = "https://cloud-api.yandex.net/v1/disk/" // TODO url
+            return __makeRequest(baseUrl, "getWebMeditations")
+        }
+
+        /* Private */
+        function __makeRequest(request, code, method) {
+            method = method || "GET"
+
+            if (requestLogEnabled)
+                console.log("__makeRequest", request, code, method)
+
+            var doc = new XMLHttpRequest()
+            var task = {"code" : code, "doc" : doc, "id" : __requestIdCounter++,
+                "setMeta" : function(key, meta) { this[key] = meta; return this; }}
+
+            doc.onreadystatechange = function() {
+                if (doc.readyState === XMLHttpRequest.DONE) {
+
+                    var resObj = { "task" : task, "isError": false}
+
+                    if (doc.status != 200 && doc.status != 201 && doc.status != 202 && doc.status != 204  ) {
+                        resObj.isError = true
+                        resObj.response = { "statusText" : doc.statusText, "status" : doc.status}
+                    } else {
+                        var parsedResponse = {}
+                        try {
+                            parsedResponse = JSON.parse(__preProcessData(code, doc.responseText))
+                        } catch (e) { }
+                        if (parsedResponse.error) {
+                            resObj.isError = true
+                        }
+                        resObj.response = parsedResponse
+                    }
+
+                    __emitSignal(resObj, code)
+                }
+            }
+
+            doc.open(method, request, true)
+            //doc.setRequestHeader("Authorization", "OAuth " + accessToken)
+            doc.send()
+
+            return task
+        }
+
+        function __preProcessData(code, data) {
+            return data
+        }
+
+        function __emitSignal(resObj, operationCode) {
+            responseReceived(resObj, operationCode)
+        }
+
+        property int __requestIdCounter: 0
+    } // API
+
+    Connections {
+        target: webApi
+
+        onResponseReceived: {
+            //var r = resObj.response
+            //handleWebItems(webItems)
+            //OR
+            //handleResponse(resObj)
         }
     }
 }

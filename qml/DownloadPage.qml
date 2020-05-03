@@ -88,6 +88,7 @@ Page {
                 to: model.total
                 value: model.current
                 visible: model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED
+                indeterminate: model.status === JS.STATUS_REQUESTED
                 anchors {
                     bottom: parent.bottom
                     bottomMargin: 6
@@ -120,9 +121,9 @@ Page {
     }
 
 
-//    BusyIndicator {
-//        z: 10
-//        anchors.centerIn: parent
-//        running: listRequestInProgress
-//    }
+    BusyIndicator {
+        z: 10
+        anchors.centerIn: parent
+        running: transferManager.theTask
+    }
 }

@@ -22,7 +22,7 @@ QString CppUtils::prependWithDownloadsPath(const QString &fileName) const
     static QString dirName;
     if (dirName.isEmpty())
     {
-        dirName = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + QStringLiteral("/AMeditation"); // TODO DownloadLocation
+        dirName = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + QStringLiteral("/AMeditation");
         qCDebug(CppSingletone) << "Directory for downloads:" << dirName;
     }
 
