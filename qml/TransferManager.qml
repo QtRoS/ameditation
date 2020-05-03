@@ -92,10 +92,35 @@ Item {
         d.doDownloadStep()
     }
 
+    // Utility functions
     function remove(cd) {
         CppUtils.removeFile(cd.localUrl)
         cd.status = JS.STATUS_INITIAL
         DB.updateMeditation(cd.meditation, cd.status, cd.localUrl)
+    }
+
+    function getExtendedMeditations() {
+        var dbItems = DB.getFinishedMeditations()
+
+        var itemsToDisplay = []
+        for (var i = 0; i < dbItems.rows.length; i++) {
+            var dbItem = dbItems.rows.item(i)
+
+            var obj = {
+                "title": dbItem.title,
+                "subtitle": dbItem.subtitle,
+                "description": dbItem.description,
+                "icon": dbItem.icon,
+                "meditation": dbItem.meditation,
+                "color": dbItem.color,
+                "isBuiltIn": false,
+                "localUrl" : dbItem.localUrl
+            }
+
+            itemsToDisplay.push(obj)
+        }
+
+        return itemsToDisplay
     }
 
     property QtObject d: QtObject {

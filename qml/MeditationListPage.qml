@@ -3,32 +3,11 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.2
 
-import "databasemodule.js" as DB
-
 Page {
 
     Component.onCompleted: {
-        var dbItems = DB.getFinishedMeditations()
-
-        var itemsToDisplay = []
-        for (var i = 0; i < dbItems.rows.length; i++) {
-            var dbItem = dbItems.rows.item(i)
-
-            var obj = {
-                "title": dbItem.title,
-                "subtitle": dbItem.subtitle,
-                "description": dbItem.description,
-                "icon": dbItem.icon,
-                "meditation": dbItem.meditation,
-                "color": dbItem.color,
-                "isBuiltIn": false,
-                "localUrl" : dbItem.localUrl
-            }
-
-            itemsToDisplay.push(obj)
-        }
-
-        meditationModelExtended.append(itemsToDisplay)
+        var extendedMeditations = transferManager.getExtendedMeditations()
+        meditationModelExtended.append(extendedMeditations)
     }
 
     ListView {
