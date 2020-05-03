@@ -3,29 +3,33 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.2
 
+import AMeditation.CppUtils 1.0
 import "databasemodule.js" as DB
+import "jsmodule.js" as JS
 
 Page {
+
+    property var downloadModel: transferManager.transferModel
 
     Component.onCompleted: {
 
         // TODO make web request
         var webItems = [
             {
-                "title": "M1",
-                "subtitle": "Some extra medit 1",
-                "description": "Bla bla",
+                "title": "Транс - мотивация",
+                "subtitle": "Позволяет получить отдых и расслабление, а так же укрепить мотивацию для достижения целей",
+                "description": "Предлагаю вашему вниманию транс (медитацию), который вы можете слушать раз в два, три дня. Он будет полезен каждому, поскольку позволяет получить отдых и расслабление, а так же укрепить мотивацию для достижения целей. В результате прослушивания этого транса (медитации), вы сможете получить эффект глубокого физического и эмоционального расслабления, который сравним с тремя - четырьмя часами ночного сна.",
                 "icon": "",
-                "meditation": "m1",
-                "url": "http://localhost:80/m1.mp3"
-            },
-            {
-                "title": "M2",
-                "subtitle": "Some extra medit 2",
-                "description": "Xxxxx sa dddddd",
+                "meditation": "trans_motivation",
+                "url": "http://antonovpsy.ru//trans/mp3/trans_motivation.mp3"
+            }
+            ,{
+                "title": "Медитативный настрой",
+                "subtitle": "Всего лишь 20 минут, проведённых в спокойной обстановке и прослушивание данного настроя дадут возможность получить отдых, зарядиться ресурсом как после 2-3 часового дневного сна",
+                "description": "Поэтому методики самовосстановления (трансы и медитации), которые можно отнести к психогигиене, становятся очень востребованными. Всего лишь 20 минут, проведённых в спокойной обстановке и прослушивание данного настроя дадут возможность получить отдых, зарядиться ресурсом как после 2-3 часового дневного сна. Кроме того, данные образы обладают выраженным лечебным эффектом, что очень рекомендовано применять пациентам с хроническими заболеваниями. Для эффективного прослушивания позаботьтесь о том, чтобы вам никто не мешал. Найдите удобное место, устройтесь поудобнее и включите аудиозапись. Лучше всего это сделать через наушники.",
                 "icon": "",
-                "meditation": "m2",
-                "url": "http://localhost:80/m2.mp3"
+                "meditation": "med_mood",
+                "url": "http://www.psy-syzran.ru/audio/audio.mp3"
             }
         ]
 
@@ -43,14 +47,17 @@ Page {
                 "icon": syncedItem.icon,
                 "meditation": syncedItem.meditation,
                 "url": syncedItem.url,
-                "status": syncedItem.status,
-                "progress": 0.0
+
+                "status": JS.STATUS_INITIAL,
+                "localUrl" : "",
+                "current" : 0,
+                "total" : 0
             }
 
             itemsToDisplay.push(artObj)
         }
 
-        console.log("itemsToDisplay", itemsToDisplay)
+        console.log("itemsToDisplay", JSON.stringify(itemsToDisplay))
         downloadModel.append(itemsToDisplay)
     }
 
@@ -67,12 +74,9 @@ Page {
             extendedMode: true
             iconSource: "qrc:/img/my1.png"
 //            iconColor: model.color
-            title: model.title
+            title: model.title + ' ' + model.status
 //            titleColor: model.color
             subtitle: model.subtitle
-
-            onClicked: console.log('CLICKED')
-
 
             Row {
                 spacing: 15
@@ -84,12 +88,14 @@ Page {
                 }
 
                 Button {
-                    text: model.status === "PENDING" ? "Отмена" : "Скачать" // TODO delete
+                    text: (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED) ? "Отмена" : "Скачать" // TODO delete
                     flat: true
-                    enabled: model.status === "PENDING" || model.status === "NEW"
+                    enabled: model.status !== JS.STATUS_FINISHED // && model.status !== JS.STATUS_REQUESTED
                     onPressed: {
-                        console.log("model.status", model.status)
-                        model.status = model.status === "NEW" ? "PENDING" : "NEW"
+                        if (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED)
+                            transferManager.stop(model.index)
+                        else
+                            transferManager.start(model.index)
                     }
                 }
 
@@ -101,9 +107,9 @@ Page {
 
             ProgressBar {
                 from: 0
-                to: 100
-                value: 50 // TODO From model
-                visible:  model.status === "PENDING"
+                to: model.total
+                value: model.current
+                visible: model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED
                 anchors {
                     bottom: parent.bottom
                     bottomMargin: 6
@@ -114,13 +120,10 @@ Page {
         }
     }
 
-    ListModel {
-        id: downloadModel
-    }
 
-    BusyIndicator {
-        z: 10
-        anchors.centerIn: parent
-        running: listRequestInProgress
-    }
+//    BusyIndicator {
+//        z: 10
+//        anchors.centerIn: parent
+//        running: listRequestInProgress
+//    }
 }

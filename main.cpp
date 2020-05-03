@@ -1,5 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
+#include "networkmanager.h"
+#include "cpputils.h"
 
 int main(int argc, char *argv[])
 {
@@ -7,6 +11,8 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    qmlRegisterSingletonType<CppUtils>("AMeditation.CppUtils", 1, 0, "CppUtils", CppUtils::cppUtilsSingletoneProvider);
+    engine.rootContext()->setContextProperty("networkManager", new NetworkManager());
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;

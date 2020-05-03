@@ -81,12 +81,16 @@ function syncMeditations(objects)
             var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
             if (dbResult.rows.length > 0) {
                 console.log("Database, addMeditations: already exist with meditation: ", obj.meditation)
-                continue
+                // TODO BUG UPDATE URL AND OTHER
+            }
+            else
+            {
+                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, status) VALUES(?, ?, ?, ?, ?, ?, ?)',
+                                         [obj.title, obj.subtitle, obj.description,obj. icon, obj.meditation, obj.url, 'NEW'])  // TODO status
+                console.log("meditation INSERT ID: ", dbResult.insertId)
             }
 
-            dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, status) VALUES(?, ?, ?, ?, ?, ?, ?)',
-                                     [obj.title, obj.subtitle, obj.description,obj. icon, obj.meditation, obj.url, 'NEW'])  // TODO status
-            console.log("meditation INSERT ID: ", dbResult.insertId)
+
         }
     })
 

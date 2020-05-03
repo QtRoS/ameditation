@@ -41,4 +41,8 @@ ApplicationWindow {
     OptionsKeeper {
         id: optionsKeeper
     }
+
+    TransferManager {
+        id: transferManager
+    }
 }
