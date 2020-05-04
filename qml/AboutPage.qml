@@ -38,7 +38,7 @@ Material.elevation: 2
                 }
 
                 Label {
-                    text: "<b>Профессиональный психолог и психотерапевт.</b>"
+                    text: "<b>Профессиональный психолог и психотерапевт</b>"
                     width: parent.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignHCenter
@@ -56,8 +56,35 @@ Material.elevation: 2
 контакты для записи на прием ищите на моем личном сайте: \
 <a href='http://antonovpsy.ru/' target='_blank'>сайт психолога</a></p><br>\
 <p>По просьбам желающих оставляю ниже ссылку на страницу с пожертвованиями (благодарностями) автору проекта: \
-<a href='http://antonovpsy.ru/donate.php' target='_blank'>БЛАГОДАРНОСТЬ АВТОРУ</a></p><br>\
-Выражаю искреннюю благодарность Роману Щекину (<a href='mailto:qtros@yandex.ru'>qtros@yandex.ru</a>) за помощь в написании и оформлении приложения."
+<a href='http://antonovpsy.ru/donate.php' target='_blank'>БЛАГОДАРНОСТЬ АВТОРУ</a></p><br>"
+                    width: parent.width
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    horizontalAlignment: Text.AlignJustify
+                    Material.foreground:Material.Grey
+                    onLinkActivated: Qt.openUrlExternally(link)
+                }
+
+                Label {
+                    text: qsTr("Роман Щекин")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Material.foreground: Material.Amber
+                    font.pointSize: 14
+                    elide: Text.ElideRight
+                }
+
+                Label {
+                    text: "<b>Разработчик программного обеспечения</b>"
+                    width: parent.width
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    horizontalAlignment: Text.AlignHCenter
+                    Material.foreground:Material.Grey
+                }
+
+                Label {
+                    text: "<p>Я присоединился к разработке приложения после того, как сам воспользовался им впервые, оказавшись в непростой жизненной ситуации. \
+В приложении был и остается поистине уникальный контент, однако в плане удобства пользования было куда расти. Мобильная разработка не мой основной профиль, \
+однако определенный опыт создания приложений все же был, поэтому я предложил Александру полностью переписать приложение. Улучшенная и обновленная версия сейчас перед Вами.</p><br>
+По всем вопросам и пожеланиям Вы всегда можете связаться со мной по адресу (<a href='mailto:qtros@yandex.ru'>qtros@yandex.ru</a>) или найдя меня как @<b>QtRoS</b>"
                     width: parent.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignJustify

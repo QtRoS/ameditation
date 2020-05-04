@@ -99,8 +99,8 @@ Page {
 
         ListElement {
             icon: "qrc:/img/increase-font-size.png"
-            title: "Об авторе"
-            subtitle: "Информация об авторе методик"
+            title: "Об авторах"
+            subtitle: "Информация об авторах приложения"
             page: "qrc:/qml/AboutPage.qml"
         }
 
