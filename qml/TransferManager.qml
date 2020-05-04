@@ -14,37 +14,19 @@ Item {
         if (transferModel.count > 0)
             return
 
-//      theTask = webApi.getWebMeditations()
-
-        // TODO TMP vvvv
-        var webItems = [
-            {
-                "title": "Транс - мотивация",
-                "subtitle": "Позволяет получить отдых и расслабление, а так же укрепить мотивацию для достижения целей",
-                "description": "Предлагаю вашему вниманию транс (медитацию), который вы можете слушать раз в два, три дня. Он будет полезен каждому, поскольку позволяет получить отдых и расслабление, а так же укрепить мотивацию для достижения целей. В результате прослушивания этого транса (медитации), вы сможете получить эффект глубокого физического и эмоционального расслабления, который сравним с тремя - четырьмя часами ночного сна.",
-                "icon": "qrc:/img/my0.png",
-                "meditation": "trans_motivation",
-                "url": "http://antonovpsy.ru//trans/mp3/trans_motivation.mp3",
-                "color": "#673AB7",
-            }
-            ,{
-                "title": "Медитативный настрой",
-                "subtitle": "Всего лишь 20 минут, проведённых в спокойной обстановке и прослушивание данного настроя дадут возможность получить отдых, зарядиться ресурсом как после 2-3 часового дневного сна",
-                "description": "Поэтому методики самовосстановления (трансы и медитации), которые можно отнести к психогигиене, становятся очень востребованными. Всего лишь 20 минут, проведённых в спокойной обстановке и прослушивание данного настроя дадут возможность получить отдых, зарядиться ресурсом как после 2-3 часового дневного сна. Кроме того, данные образы обладают выраженным лечебным эффектом, что очень рекомендовано применять пациентам с хроническими заболеваниями. Для эффективного прослушивания позаботьтесь о том, чтобы вам никто не мешал. Найдите удобное место, устройтесь поудобнее и включите аудиозапись. Лучше всего это сделать через наушники.",
-                "icon": "qrc:/img/my1.png",
-                "meditation": "med_mood",
-                "url": "http://www.psy-syzran.ru/audio/audio.mp3",
-                "color": "#FF5722",
-            }
-        ]
-
-        handleWebItems(webItems)
-        // TODO TMP ^^^^
+        theTask = webApi.getWebMeditations()
     }
 
-    function handleWebItems(webItems) { // TODO rename handleResponse
+    function handleResponse(resObj) {
 
         theTask = null
+
+        if (resObj.isError) {
+            // TODO handle error
+            return
+        }
+
+        var webItems = resObj.response.meditations
 
         DB.syncMeditations(webItems)
         var syncedItems = DB.getMeditations()
@@ -232,7 +214,7 @@ Item {
         readonly property bool requestLogEnabled: true
 
         function getWebMeditations() {
-            var baseUrl = "https://cloud-api.yandex.net/v1/disk/" // TODO url
+            var baseUrl = "http://antonovpsy.ru/app/json_for_meditations"
             return __makeRequest(baseUrl, "getWebMeditations")
         }
 
@@ -251,7 +233,6 @@ Item {
                 if (doc.readyState === XMLHttpRequest.DONE) {
 
                     var resObj = { "task" : task, "isError": false}
-
                     if (doc.status != 200 && doc.status != 201 && doc.status != 202 && doc.status != 204  ) {
                         resObj.isError = true
                         resObj.response = { "statusText" : doc.statusText, "status" : doc.status}
@@ -259,10 +240,12 @@ Item {
                         var parsedResponse = {}
                         try {
                             parsedResponse = JSON.parse(__preProcessData(code, doc.responseText))
-                        } catch (e) { }
-                        if (parsedResponse.error) {
+                            console.log("parsedResponse", parsedResponse)
+                        } catch (e) {
+                            console.log(e)
                             resObj.isError = true
                         }
+
                         resObj.response = parsedResponse
                     }
 
@@ -290,12 +273,6 @@ Item {
 
     Connections {
         target: webApi
-
-        onResponseReceived: {
-            //var r = resObj.response
-            //handleWebItems(webItems)
-            //OR
-            //handleResponse(resObj)
-        }
+        onResponseReceived: handleResponse(resObj)
     }
 }
