@@ -22,7 +22,7 @@ Item {
         theTask = null
 
         if (resObj.isError) {
-            // TODO handle error
+             // TODO handle error
             return
         }
 
@@ -54,7 +54,7 @@ Item {
             itemsToDisplay.push(artObj)
         }
 
-        console.log('itemsToDisplay', JSON.stringify(itemsToDisplay))
+        //console.log('itemsToDisplay', JSON.stringify(itemsToDisplay))
         transferModel.append(itemsToDisplay)
     }
 
@@ -67,7 +67,7 @@ Item {
             return
 
         itm.status = JS.STATUS_REQUESTED
-        console.log("---- start", JSON.stringify(itm))
+        //console.log("---- start", JSON.stringify(itm))
         d.doDownloadStep()
     }
 
@@ -120,7 +120,6 @@ Item {
         property var currentDownload: null
 
         function doDownloadStep() {
-            console.log("doDownloadStep enter")
             // Check if we should pick next task.
             if (!currentDownload || currentDownload.status === JS.STATUS_FINISHED || currentDownload.status === JS.STATUS_ERROR) {
                 currentDownload = getNextDownload()
@@ -129,15 +128,13 @@ Item {
                 if (!currentDownload)
                     return
             }
-            console.log("doDownloadStep", JSON.stringify(currentDownload))
+            //console.log("doDownloadStep", JSON.stringify(currentDownload))
 
             switch (currentDownload.status)
             {
             case JS.STATUS_REQUESTED:
                 var shortName = JS.getFileName(currentDownload.url) // TODO meditation?
-                console.log("currentDownload.localUrl 1", currentDownload.localUrl)
                 currentDownload.localUrl = CppUtils.prependWithDownloadsPath(shortName)
-                console.log("currentDownload.localUrl 2", currentDownload.localUrl)
                 var isSucces = networkManager.download(currentDownload.url, currentDownload.localUrl)
                 if (!isSucces) {
                     changeDownloadStatus(JS.STATUS_ERROR)
@@ -187,7 +184,7 @@ Item {
             if (status === "success") {
                 var cd = d.currentDownload
                 d.changeDownloadStatus(JS.STATUS_FINISHED)
-                console.log("onDownloadOperationFinished updateMeditation")
+                //console.log("onDownloadOperationFinished updateMeditation")
                 DB.updateMeditation(cd.meditation, cd.status, cd.localUrl)
             }
             else d.changeDownloadStatus(JS.STATUS_ERROR)
@@ -240,7 +237,7 @@ Item {
                         var parsedResponse = {}
                         try {
                             parsedResponse = JSON.parse(__preProcessData(code, doc.responseText))
-                            console.log("parsedResponse", parsedResponse)
+                            //console.log("parsedResponse", parsedResponse)
                         } catch (e) {
                             console.log(e)
                             resObj.isError = true

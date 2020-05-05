@@ -45,7 +45,7 @@ Page {
 
                 Button {
                     flat: true
-                    text: (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED) ? "Отмена" : "Скачать" // TODO delete
+                    text: (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED) ? "Отмена" : "Скачать"
                     Material.foreground: "#303030"
                     enabled: model.status !== JS.STATUS_FINISHED // && model.status !== JS.STATUS_REQUESTED
                     onClicked: {
