@@ -72,7 +72,7 @@ Page {
 
         delegate: CommonListItem {
             iconSource: model.icon
-            iconColor: "lightgrey"
+            iconColor: model.color
             title: model.title
             subtitle: model.subtitle
 
@@ -85,13 +85,15 @@ Page {
 
         ListElement {
             icon: "qrc:/img/settings-wheel.png"
-            title: "Скачать медитации"
+            color: "#E91E63" // 2196F3
+            title: "Загрузка медитаций"
             subtitle: "Дополнительные медитации в дополнение к стандартным"
             page: "qrc:/qml/DownloadPage.qml"
         }
 
         ListElement {
             icon: "qrc:/img/dotted-list.png"
+            color: "lightgrey"
             title: "Инструкции"
             subtitle: "Настоятельно рекомендуется прочесть перед использованием"
             page: "qrc:/qml/InstructionPage.qml"
@@ -99,6 +101,7 @@ Page {
 
         ListElement {
             icon: "qrc:/img/increase-font-size.png"
+            color: "lightgrey"
             title: "Об авторах"
             subtitle: "Информация об авторах приложения"
             page: "qrc:/qml/AboutPage.qml"
@@ -106,6 +109,7 @@ Page {
 
         ListElement {
             icon: "qrc:/img/complete.png"
+            color: "lightgrey"
             title: "Записаться на прием"
             subtitle: "Информация по поводу записи на прием"
             page: "qrc:/qml/SignUpPage.qml"

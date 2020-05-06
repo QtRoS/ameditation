@@ -38,15 +38,15 @@ Page {
                 spacing: 15
                 anchors {
                     bottom: parent.bottom
-                    bottomMargin: 10
+                    bottomMargin: 5
                     right: parent.right
-                    rightMargin: 10
+                    rightMargin: 5
                 }
 
                 Button {
                     flat: true
                     text: (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED) ? "Отмена" : "Скачать"
-                    Material.foreground: "#303030"
+                    Material.foreground: "#424242"
                     enabled: model.status !== JS.STATUS_FINISHED // && model.status !== JS.STATUS_REQUESTED
                     onClicked: {
                         if (model.status === JS.STATUS_INPROGRESS || model.status === JS.STATUS_REQUESTED)
@@ -61,7 +61,7 @@ Page {
 
                     flat: !warnState
                     text: warnState ? "Удалить?" : "Удалить"
-                    Material.foreground: warnState ? Material.Red : "#303030"
+                    Material.foreground: warnState ? Material.Red : "#424242"
                     enabled: model.status === JS.STATUS_FINISHED
                     onClicked: {
                         if (!warnState) {
