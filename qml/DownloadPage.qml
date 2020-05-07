@@ -38,7 +38,7 @@ Page {
                 spacing: 15
                 anchors {
                     bottom: parent.bottom
-                    bottomMargin: 5
+                    bottomMargin: 10
                     right: parent.right
                     rightMargin: 5
                 }
@@ -81,6 +81,22 @@ Page {
                         onTriggered: parent.warnState = false
                     }
                 }
+            }
+
+            Label {
+                anchors {
+                    left: parent.left
+                    leftMargin: 10
+                    bottom: parent.bottom
+                    bottomMargin: 10
+                }
+                Material.foreground: Material.Grey
+
+                font.pixelSize: 11
+                text: "Качество: %1\nРазмер: %2".arg(model.quality).arg(model.size)
+
+                //text: "Качество: %1, %2".arg(model.quality).arg(model.size)
+                //horizontalAlignment: Text.AlignHCenter
             }
 
             ProgressBar {

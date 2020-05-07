@@ -63,7 +63,7 @@ Page {
                         right: parent.right
                     }
                     horizontalAlignment: Text.AlignHCenter
-                    Material.foreground:Material.Grey
+                    Material.foreground: Material.Grey
                     font.pixelSize: 12
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }

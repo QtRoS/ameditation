@@ -45,6 +45,8 @@ Item {
                 "color": syncedItem.color,
                 "localUrl" : syncedItem.localUrl,
                 "status": syncedItem.status,
+                "size" : syncedItem.size,
+                "quality": syncedItem.quality,
 
                 // UI only.
                 "current" : 0,

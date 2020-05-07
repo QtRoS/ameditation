@@ -22,16 +22,10 @@ function openStdDataBase() {
                     color	TEXT, \
                     status	TEXT);")
             }}
-//            ,{'from': "1.0", 'to': "1.1", 'ops': function(transaction) {
-//                transaction.executeSql("CREATE TABLE meditations2 ( \
-//                    id	INTEGER PRIMARY KEY AUTOINCREMENT, \
-//                    title	TEXT NOT NULL, \
-//                    subtitle	TEXT, \
-//                    description	TEXT, \
-//                    icon	TEXT, \
-//                    meditation	TEXT, \
-//                    status	TEXT);")
-//            }}
+            ,{'from': "1.0", 'to': "1.1", 'ops': function(transaction) {
+                transaction.executeSql("ALTER TABLE meditations ADD size TEXT;")
+                transaction.executeSql("ALTER TABLE meditations ADD quality TEXT;")
+            }}
         ]
 
         do {
@@ -98,13 +92,13 @@ function syncMeditations(objects) {
             var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
             if (dbResult.rows.length > 0) {
                 console.log("Database, addMeditations: already exist with meditation: ", obj.meditation)
-                dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, icon=?, url=?, color=? WHERE meditation=?",
-                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.url, obj.color, obj.meditation])
+                dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, icon=?, url=?, color=?, size=?, quality=? WHERE meditation=?",
+                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.url, obj.color, obj.size, obj.quality, obj.meditation])
                 console.log("syncMeditations UPDATED: ", dbResult.rowsAffected)
             }
             else {
-                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, color, status, localUrl) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.meditation, obj.url, obj.color, 'initial', 'file:'])
+                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, color, status, localUrl, size, quality) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.meditation, obj.url, obj.color, 'initial', 'file:', obj.size, obj.quality])
                 console.log("syncMeditations INSERT ID: ", dbResult.insertId)
             }
         }
