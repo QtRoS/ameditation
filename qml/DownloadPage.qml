@@ -35,10 +35,12 @@ Page {
             }
 
             Row {
+                id: buttonsRow
+
                 spacing: 15
                 anchors {
                     bottom: parent.bottom
-                    bottomMargin: 10
+                    bottomMargin: 5
                     right: parent.right
                     rightMargin: 5
                 }
@@ -84,19 +86,20 @@ Page {
             }
 
             Label {
-                anchors {
-                    left: parent.left
-                    leftMargin: 10
-                    bottom: parent.bottom
-                    bottomMargin: 10
-                }
                 Material.foreground: Material.Grey
-
                 font.pixelSize: 11
                 text: "Качество: %1\nРазмер: %2".arg(model.quality).arg(model.size)
 
                 //text: "Качество: %1, %2".arg(model.quality).arg(model.size)
                 //horizontalAlignment: Text.AlignHCenter
+
+                anchors {
+                    left: parent.left
+                    leftMargin: 10
+                    //bottom: parent.bottom
+                    //bottomMargin: 10
+                    verticalCenter: buttonsRow.verticalCenter
+                }
             }
 
             ProgressBar {
