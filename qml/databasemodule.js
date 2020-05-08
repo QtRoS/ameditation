@@ -30,8 +30,8 @@ function openStdDataBase() {
                 transaction.executeSql("ALTER TABLE meditations ADD duration INTEGER;")
             }}
             ,{'from': "1.2", 'to': "1.3", 'ops': function(transaction) {
-                transaction.executeSql("ALTER TABLE meditations DROP COLUMN icon;")
-                transaction.executeSql("ALTER TABLE meditations DROP COLUMN url;")
+                transaction.executeSql("ALTER TABLE meditations DROP icon;")
+                transaction.executeSql("ALTER TABLE meditations DROP url;")
             }}
         ]
 
