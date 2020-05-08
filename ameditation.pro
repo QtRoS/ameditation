@@ -14,11 +14,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     cpputils.cpp \
-    networkmanager.cpp
+    networkmanager.cpp \
+    cachingnetworkmanagerfactory.cpp
 
 HEADERS += \
     networkmanager.h \
-    cpputils.h
+    cpputils.h \
+    cachingnetworkmanagerfactory.h
+
 
 RESOURCES += qml.qrc media.qrc
 

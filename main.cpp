@@ -4,6 +4,7 @@
 
 #include "networkmanager.h"
 #include "cpputils.h"
+#include "cachingnetworkmanagerfactory.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,8 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("antonovpsy.ru");
 
     QQmlApplicationEngine engine;
+
+    engine.setNetworkAccessManagerFactory(new CachingNetworkManagerFactory());
     qmlRegisterSingletonType<CppUtils>("AMeditation.CppUtils", 1, 0, "CppUtils", CppUtils::cppUtilsSingletoneProvider);
     engine.rootContext()->setContextProperty("networkManager", new NetworkManager());
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
