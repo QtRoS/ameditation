@@ -43,7 +43,7 @@ Pane {
             }
 
             Label {
-                text: qsTr("МЕДИТАЦИИ 3")
+                text: qsTr("МЕДИТАЦИИ 2")
                 Material.foreground: "white" //optionsKeeper.contrastColor
                 font.pixelSize: 20
                 elide: Text.ElideRight
