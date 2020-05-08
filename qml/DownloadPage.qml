@@ -21,9 +21,10 @@ Page {
 
         delegate: CommonListItem {
             extendedMode: true
+            height: 120
             iconSource: model.icon
             iconColor: model.color
-            title: model.title // + ' ' + model.status
+            title: model.title
             titleColor: model.color
             subtitle: model.subtitle
 

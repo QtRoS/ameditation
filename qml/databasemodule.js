@@ -26,6 +26,9 @@ function openStdDataBase() {
                 transaction.executeSql("ALTER TABLE meditations ADD size TEXT;")
                 transaction.executeSql("ALTER TABLE meditations ADD quality TEXT;")
             }}
+            ,{'from': "1.1", 'to': "1.2", 'ops': function(transaction) {
+                transaction.executeSql("ALTER TABLE meditations ADD duration INTEGER;")
+            }}
         ]
 
         do {
@@ -92,13 +95,13 @@ function syncMeditations(objects) {
             var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
             if (dbResult.rows.length > 0) {
                 console.log("Database, addMeditations: already exist with meditation: ", obj.meditation)
-                dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, icon=?, url=?, color=?, size=?, quality=? WHERE meditation=?",
-                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.url, obj.color, obj.size, obj.quality, obj.meditation])
+                dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, icon=?, url=?, color=?, size=?, quality=?, duration=? WHERE meditation=?",
+                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.url, obj.color, obj.size, obj.quality, obj.duration, obj.meditation])
                 console.log("syncMeditations UPDATED: ", dbResult.rowsAffected)
             }
             else {
-                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, color, status, localUrl, size, quality) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.meditation, obj.url, obj.color, 'initial', 'file:', obj.size, obj.quality])
+                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, color, status, localUrl, size, quality) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.meditation, obj.url, obj.color, 'initial', 'file:', obj.size, obj.quality, obj.duration])
                 console.log("syncMeditations INSERT ID: ", dbResult.insertId)
             }
         }

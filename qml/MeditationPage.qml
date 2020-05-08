@@ -3,6 +3,8 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtMultimedia 5.12
 
+import "jsmodule.js" as JS
+
 Page {
 
     property string meditAudioSource: ""
@@ -125,8 +127,7 @@ Page {
                     text: {
                         var positionInSecs = Math.round(audioPlayback.position/1000)
                         var durationInSecs = Math.round(audioPlayback.duration/1000)
-                        return "(%1 / %2)".arg(Qt.formatTime(new Date(2017, 0, 0, 0, Math.floor(positionInSecs/60), Math.floor(positionInSecs%60), 0), "mm:ss"))
-                                        .arg(Qt.formatTime(new Date(2017, 0, 0, 0, Math.floor(durationInSecs/60), Math.floor(durationInSecs%60), 0), "mm:ss"))
+                        return "(%1 / %2)".arg(JS.decorateTime(positionInSecs)).arg(JS.decorateTime(durationInSecs))
                     }
 
                     anchors.horizontalCenter: parent.horizontalCenter

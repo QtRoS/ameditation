@@ -50,6 +50,7 @@ Item {
                 "status": syncedItem.status,
                 "size" : syncedItem.size,
                 "quality": syncedItem.quality,
+                "duration": syncedItem.duration,
 
                 // UI only.
                 "current" : 0,
@@ -111,6 +112,7 @@ Item {
                 "meditation": dbItem.meditation,
                 "color": dbItem.color,
                 "quality": dbItem.quality,
+                "duration": dbItem.duration,
                 "isBuiltIn": false,
                 "localUrl" : dbItem.localUrl
             }

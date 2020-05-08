@@ -17,7 +17,7 @@ Button {
         right: parent.right
     }
 
-    height: extendedMode ? 120 : 80
+    height: 80
     Material.background: "white" //optionsKeeper.contrastColor
     Material.elevation: 2
 
@@ -27,7 +27,7 @@ Button {
             left: parent.left
             leftMargin: 10
             verticalCenter: parent.verticalCenter
-            verticalCenterOffset: extendedMode ? -20 : 0
+            verticalCenterOffset: extendedMode ? (80 - parent.height) / 2 : 0
         }
 
         width: 60
@@ -41,7 +41,7 @@ Button {
             right: parent.right
             rightMargin: 5
             verticalCenter: parent.verticalCenter
-            verticalCenterOffset: extendedMode ? -20 : 0
+            verticalCenterOffset: extendedMode ? (80 - parent.height) / 2 : 0
         }
 
         Label {

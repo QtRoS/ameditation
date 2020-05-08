@@ -29,6 +29,10 @@ var STATUS_ERROR = "error"
 var TRANSFER_DOWNLOAD = "download"
 var TRANSFER_UPLOAD = "upload"
 
+function decorateTime(seconds) {
+    return Qt.formatTime(new Date(2020, 0, 0, 0, Math.floor(seconds/60), Math.floor(seconds%60), 0), "mm:ss")
+}
+
 function decorateFileSize(size) {
     if (!size)
         return "directory"
