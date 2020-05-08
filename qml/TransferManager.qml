@@ -110,6 +110,7 @@ Item {
                 "icon": dbItem.icon,
                 "meditation": dbItem.meditation,
                 "color": dbItem.color,
+                "quality": dbItem.quality,
                 "isBuiltIn": false,
                 "localUrl" : dbItem.localUrl
             }

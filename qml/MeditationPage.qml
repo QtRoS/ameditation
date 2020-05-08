@@ -9,6 +9,7 @@ Page {
     property string meditTitle: ""
     property string meditDesc: ""
     property string meditColor: ""
+    property string meditQuality: ""
 
     Audio {
         id: audioPlayback
@@ -55,6 +56,22 @@ Page {
 
                 Label {
                     text: meditDesc
+                    width: parent.width
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    horizontalAlignment: Text.AlignJustify
+                    Material.foreground: Material.Grey
+                }
+
+                Item {
+                    height: 5
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                }
+
+                Label {
+                    text: "Качество: %1".arg(meditQuality)
                     width: parent.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     horizontalAlignment: Text.AlignJustify
