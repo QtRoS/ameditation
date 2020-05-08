@@ -42,9 +42,7 @@ Item {
                 "title": syncedItem.title,
                 "subtitle": syncedItem.subtitle,
                 "description": syncedItem.description,
-                "icon": syncedItem.icon,
                 "meditation": syncedItem.meditation,
-                "url": syncedItem.url,
                 "color": syncedItem.color,
                 "localUrl" : syncedItem.localUrl,
                 "status": syncedItem.status,
@@ -53,6 +51,7 @@ Item {
                 "duration": syncedItem.duration,
 
                 // UI only.
+                "icon": "http://antonovpsy.ru/app/%1.png".arg(syncedItem.meditation),
                 "current" : 0,
                 "total" : 0
             }
@@ -108,13 +107,15 @@ Item {
                 "title": dbItem.title,
                 "subtitle": dbItem.subtitle,
                 "description": dbItem.description,
-                "icon": dbItem.icon,
                 "meditation": dbItem.meditation,
                 "color": dbItem.color,
                 "quality": dbItem.quality,
                 "duration": dbItem.duration,
+                "localUrl" : dbItem.localUrl,
+
+                // UI only.
                 "isBuiltIn": false,
-                "localUrl" : dbItem.localUrl
+                "icon": "http://antonovpsy.ru/app/%1.png".arg(dbItem.meditation)
             }
 
             itemsToDisplay.push(obj)
@@ -141,9 +142,10 @@ Item {
             switch (currentDownload.status)
             {
             case JS.STATUS_REQUESTED:
-                var shortName = JS.getFileName(currentDownload.url) // TODO meditation?
+                var downloadUrl = "http://antonovpsy.ru/app/snd/%1.mp3".arg(currentDownload.meditation)
+                var shortName = JS.getFileName(downloadUrl)
                 currentDownload.localUrl = CppUtils.prependWithDownloadsPath(shortName)
-                var isSucces = networkManager.download(currentDownload.url, currentDownload.localUrl)
+                var isSucces = networkManager.download(downloadUrl, currentDownload.localUrl)
                 if (!isSucces) {
                     changeDownloadStatus(JS.STATUS_ERROR)
                     return
@@ -238,7 +240,7 @@ Item {
                 if (doc.readyState === XMLHttpRequest.DONE) {
 
                     var resObj = { "task" : task, "isError": false}
-                    if (doc.status != 200 && doc.status != 201 && doc.status != 202 && doc.status != 204  ) {
+                    if (doc.status !== 200 && doc.status !== 201 && doc.status !== 202 && doc.status !== 204  ) {
                         resObj.isError = true
                         resObj.response = { "statusText" : doc.statusText, "status" : doc.status}
                     } else {

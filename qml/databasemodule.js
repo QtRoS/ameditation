@@ -29,6 +29,10 @@ function openStdDataBase() {
             ,{'from': "1.1", 'to': "1.2", 'ops': function(transaction) {
                 transaction.executeSql("ALTER TABLE meditations ADD duration INTEGER;")
             }}
+            ,{'from': "1.2", 'to': "1.3", 'ops': function(transaction) {
+                transaction.executeSql("ALTER TABLE meditations DROP COLUMN icon;")
+                transaction.executeSql("ALTER TABLE meditations DROP COLUMN url;")
+            }}
         ]
 
         do {
@@ -95,13 +99,13 @@ function syncMeditations(objects) {
             var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
             if (dbResult.rows.length > 0) {
                 console.log("Database, addMeditations: already exist with meditation: ", obj.meditation)
-                dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, icon=?, url=?, color=?, size=?, quality=?, duration=? WHERE meditation=?",
-                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.url, obj.color, obj.size, obj.quality, obj.duration, obj.meditation])
+                dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, color=?, size=?, quality=?, duration=? WHERE meditation=?",
+                                         [obj.title, obj.subtitle, obj.description, obj.color, obj.size, obj.quality, obj.duration, obj.meditation])
                 console.log("syncMeditations UPDATED: ", dbResult.rowsAffected)
             }
             else {
-                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, icon, meditation, url, color, status, localUrl, size, quality) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                         [obj.title, obj.subtitle, obj.description, obj.icon, obj.meditation, obj.url, obj.color, 'initial', 'file:', obj.size, obj.quality, obj.duration])
+                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, meditation, color, status, localUrl, size, quality, duration) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                         [obj.title, obj.subtitle, obj.description, obj.meditation, obj.color, 'initial', 'file:', obj.size, obj.quality, obj.duration])
                 console.log("syncMeditations INSERT ID: ", dbResult.insertId)
             }
         }
