@@ -15,24 +15,18 @@ function openStdDataBase() {
                     title	TEXT NOT NULL, \
                     subtitle	TEXT, \
                     description	TEXT, \
-                    icon	TEXT, \
                     meditation	TEXT, \
-                    url	TEXT, \
                     localUrl	TEXT, \
                     color	TEXT, \
+                    size TEXT, \
+                    quality TEXT, \
+                    duration INTEGER, \
                     status	TEXT);")
             }}
-            ,{'from': "1.0", 'to': "1.1", 'ops': function(transaction) {
-                transaction.executeSql("ALTER TABLE meditations ADD size TEXT;")
-                transaction.executeSql("ALTER TABLE meditations ADD quality TEXT;")
-            }}
-            ,{'from': "1.1", 'to': "1.2", 'ops': function(transaction) {
-                transaction.executeSql("ALTER TABLE meditations ADD duration INTEGER;")
-            }}
-            ,{'from': "1.2", 'to': "1.3", 'ops': function(transaction) {
-                transaction.executeSql("ALTER TABLE meditations DROP icon;")
-                transaction.executeSql("ALTER TABLE meditations DROP url;")
-            }}
+//            ,{'from': "1.0", 'to': "1.1", 'ops': function(transaction) {
+//                transaction.executeSql("ALTER TABLE meditations ADD size TEXT;")
+//                transaction.executeSql("ALTER TABLE meditations ADD quality TEXT;")
+//            }}
         ]
 
         do {
