@@ -23,7 +23,7 @@ Page {
 
         delegate: CommonListItem {
             extendedMode: true
-            height: 100
+            height: 108
             iconSource: model.icon
             iconColor: model.color
             title: model.title
@@ -47,7 +47,7 @@ Page {
                     left: parent.left
                     leftMargin: 10
                     bottom: parent.bottom
-                    bottomMargin: 10
+                    bottomMargin: 15
                 }
             }
         }

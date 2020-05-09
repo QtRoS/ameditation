@@ -86,7 +86,7 @@ Page {
             icon: "qrc:/img/settings-wheel.png"
             color: "#E91E63" // 2196F3
             title: "Загрузка медитаций"
-            subtitle: "Дополнительные медитации в дополнение к стандартным"
+            subtitle: "Добавление новых медитаций в дополнение к основным"
             page: "qrc:/qml/DownloadPage.qml"
         }
 
