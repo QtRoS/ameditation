@@ -10,6 +10,11 @@ Page {
     property var downloadModel: transferManager.transferModel
 
     Component.onCompleted: transferManager.refresh()
+    Component.onDestruction: {
+        console.log("DownloadPage Component.onDestroyed")
+        transferManager.markAllAsSeen() // TODO Handle more gracefully
+    }
+
     property bool listRequestInProgress: true
 
     ListView {
@@ -115,6 +120,8 @@ Page {
                     right: parent.right
                 }
             }
+
+            UpdatesMarker { visible: !model.seen }
         }
     }
 
@@ -143,6 +150,6 @@ Page {
     BusyIndicator {
         z: 10
         anchors.centerIn: parent
-        running: transferManager.theTask
+        running: transferManager.theTask // TODO Ugly.
     }
 }

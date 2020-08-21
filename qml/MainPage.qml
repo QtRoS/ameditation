@@ -76,6 +76,8 @@ Page {
             subtitle: model.subtitle
 
             onClicked: stackView.push(Qt.resolvedUrl(model.page))
+
+            UpdatesMarker { visible: model.updatesPossible && transferManager.hasUnseen }
         }
     }
 
@@ -88,6 +90,7 @@ Page {
             title: "Загрузка медитаций"
             subtitle: "Добавление новых медитаций в дополнение к основным"
             page: "qrc:/qml/DownloadPage.qml"
+            updatesPossible: true
         }
 
         ListElement {
@@ -96,6 +99,7 @@ Page {
             title: "Инструкции"
             subtitle: "Настоятельно рекомендуется прочесть перед использованием"
             page: "qrc:/qml/InstructionPage.qml"
+            updatesPossible: false
         }
 
         ListElement {
@@ -104,6 +108,7 @@ Page {
             title: "Об авторах"
             subtitle: "Информация об авторах приложения"
             page: "qrc:/qml/AboutPage.qml"
+            updatesPossible: false
         }
 
         ListElement {
@@ -112,6 +117,7 @@ Page {
             title: "Записаться на прием"
             subtitle: "Информация по поводу записи на прием"
             page: "qrc:/qml/SignUpPage.qml"
+            updatesPossible: false
         }
     }
 }

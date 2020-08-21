@@ -12,6 +12,7 @@ ListModel {
         meditation: "relax"
         quality: "Среднее"
         duration: 1510
+        seen: true
         isBuiltIn: true
         localUrl: ""
     }
@@ -25,6 +26,7 @@ ListModel {
         meditation: "power"
         quality: "Среднее"
         duration: 1723
+        seen: true
         isBuiltIn: true
         localUrl: ""
     }
@@ -38,6 +40,7 @@ ListModel {
         meditation: "love"
         quality: "Среднее"
         duration: 1667
+        seen: true
         isBuiltIn: true
         localUrl: ""
     }
@@ -51,6 +54,7 @@ ListModel {
         meditation: "mood"
         quality: "Среднее"
         duration: 1495
+        seen: true
         isBuiltIn: true
         localUrl: ""
     }

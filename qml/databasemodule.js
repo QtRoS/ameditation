@@ -23,7 +23,11 @@ function openStdDataBase() {
                     duration INTEGER, \
                     status	TEXT);")
             }}
-//            ,{'from': "1.0", 'to': "1.1", 'ops': function(transaction) {
+            ,{'from': "1.0", 'to': "1.1", 'ops': function(transaction) {
+                transaction.executeSql("ALTER TABLE meditations ADD seen INTEGER;")
+                transaction.executeSql("UPDATE meditations SET seen=1;")
+            }}
+//            ,{'from': "1.1", 'to': "1.2", 'ops': function(transaction) {
 //                transaction.executeSql("ALTER TABLE meditations ADD size TEXT;")
 //                transaction.executeSql("ALTER TABLE meditations ADD quality TEXT;")
 //            }}
@@ -73,6 +77,11 @@ function getFinishedMeditations() {
     var dbResult
 
     db.transaction(function(tx) {
+
+        // TODO BUG
+//        console.log("BUUUUUUUUUUUUUUUUUUUUUUUUUUG")
+//        tx.executeSql("delete from meditations")
+
         dbResult = tx.executeSql("SELECT * FROM meditations WHERE status = 'finished'")
         console.log("meditations SELECTED: ", dbResult.rows.length)
     })
@@ -92,14 +101,14 @@ function syncMeditations(objects) {
             var obj = objects[i]
             var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
             if (dbResult.rows.length > 0) {
-                console.log("Database, addMeditations: already exist with meditation: ", obj.meditation)
+                console.log("Database, addMeditations: row already exist with meditation:", obj.meditation)
                 dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, color=?, size=?, quality=?, duration=? WHERE meditation=?",
                                          [obj.title, obj.subtitle, obj.description, obj.color, obj.size, obj.quality, obj.duration, obj.meditation])
                 console.log("syncMeditations UPDATED: ", dbResult.rowsAffected)
             }
             else {
-                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, meditation, color, status, localUrl, size, quality, duration) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                         [obj.title, obj.subtitle, obj.description, obj.meditation, obj.color, 'initial', 'file:', obj.size, obj.quality, obj.duration])
+                dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, meditation, color, status, localUrl, size, quality, duration, seen) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                         [obj.title, obj.subtitle, obj.description, obj.meditation, obj.color, 'initial', 'file:', obj.size, obj.quality, obj.duration, 0])
                 console.log("syncMeditations INSERT ID: ", dbResult.insertId)
             }
         }
@@ -120,6 +129,16 @@ function updateMeditation(meditation, status, localUrl) {
         dbResult = tx.executeSql('UPDATE meditations SET status=?, localUrl=? WHERE meditation=?',
                                  [status, localUrl, meditation])
         console.log("meditations updateMeditation AFFECTED ROWS: ", dbResult.rowsAffected)
+    })
+    return dbResult
+}
+
+function setMedatationsSeen(value) {
+    var db = openStdDataBase()
+    var dbResult
+    db.transaction(function (tx) {
+        dbResult = tx.executeSql('UPDATE meditations SET seen=? WHERE seen<>?', [value, value])
+        console.log("meditations markAllAsSeen AFFECTED ROWS: ", dbResult.rowsAffected)
     })
     return dbResult
 }

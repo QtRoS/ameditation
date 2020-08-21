@@ -12,16 +12,21 @@ Item {
 
     property ListModel transferModel: ListModel { }
     property var theTask: null
+    property bool wasSuccessfulWebRequest: false
+    property bool hasUnseen: false
 
     function refresh() {
-        if (transferModel.count > 0)
+        // Shortcut: data changes not so frequently, one request per app launch is enough.
+        if (wasSuccessfulWebRequest) {
+            loadFromDb()
             return
+        }
 
         theTask = webApi.getWebMeditations()
     }
 
     function handleResponse(resObj) {
-
+        //console.log('handleResponse')
         theTask = null
 
         if (resObj.isError) {
@@ -29,9 +34,16 @@ Item {
             return
         }
 
+        wasSuccessfulWebRequest = true
         var webItems = resObj.response.meditations
 
         DB.syncMeditations(webItems)
+        loadFromDb()
+    }
+
+    function loadFromDb() {
+        //console.log('loadFromDb')
+        transferModel.clear()
         var syncedItems = DB.getMeditations()
 
         var itemsToDisplay = []
@@ -49,6 +61,7 @@ Item {
                 "size" : syncedItem.size,
                 "quality": syncedItem.quality,
                 "duration": syncedItem.duration,
+                "seen": syncedItem.seen === 1,
 
                 // UI only.
                 "icon": "http://antonovpsy.ru/app/%1.png".arg(syncedItem.meditation),
@@ -56,6 +69,7 @@ Item {
                 "total" : 0
             }
 
+            hasUnseen = hasUnseen || !artObj.seen
             itemsToDisplay.push(artObj)
         }
 
@@ -112,6 +126,7 @@ Item {
                 "quality": dbItem.quality,
                 "duration": dbItem.duration,
                 "localUrl" : dbItem.localUrl,
+                //"seen": dbItem.seen === 1,
 
                 // UI only.
                 "isBuiltIn": false,
@@ -122,6 +137,14 @@ Item {
         }
 
         return itemsToDisplay
+    }
+
+    function markAllAsSeen() {
+        DB.setMedatationsSeen(1)
+        hasUnseen = false
+        // Redundant for now.
+        for (var i = 0; i < transferModel.count; i++)
+            transferModel.setProperty(i, "seen", true)
     }
 
     property QtObject d: QtObject {

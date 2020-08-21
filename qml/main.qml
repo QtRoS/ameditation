@@ -18,7 +18,11 @@ ApplicationWindow {
         id: stackView
 
         anchors.fill: parent
-        Component.onCompleted: push(mainPage)
+        Component.onCompleted: {
+            push(mainPage)
+            transferManager.refresh()
+        }
+
         MainPage { id: mainPage }
 
         Keys.onBackPressed: {
