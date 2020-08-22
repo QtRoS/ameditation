@@ -10,7 +10,7 @@ Page {
             fill: parent
             margins: 15
         }
-Material.elevation: 2
+        Material.elevation: 2
 
         Flickable {
             anchors.fill: parent

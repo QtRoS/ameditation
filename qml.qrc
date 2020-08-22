@@ -16,6 +16,7 @@
         <file>qml/DownloadPage.qml</file>
         <file>qml/TransferManager.qml</file>
         <file>qml/UpdatesMarker.qml</file>
+        <file>qml/InfoDialog.qml</file>
         <file>qml/databasemodule.js</file>
         <file>qml/jsmodule.js</file>
         <file>img/my0.png</file>

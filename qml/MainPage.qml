@@ -81,6 +81,38 @@ Page {
         }
     }
 
+
+
+    InfoDialog {
+        id: newMeditationsDialog
+
+        Connections {
+            target: transferManager
+            onHasUnseenChanged: if (transferManager.hasUnseen) newMeditationsDialog.prepareAndShow()
+        }
+
+        function prepareAndShow() {
+            var meditNames = []
+            var tm = transferManager.transferModel
+            for (var i = 0; i < tm.count; i++) {
+                var modelItem = tm.get(i)
+                if (!modelItem.seen)
+                    meditNames.push(modelItem.title)
+            }
+
+            if (meditNames.length === tm.count)
+                console.log("ALL UNSEEN") // TODO BUG return
+
+            var description = "В разделе 'Загрузка медитаций' %1: %2. Загляните в раздел, чтобы больше не видеть это уведомление!"
+                .arg(meditNames.length === 1 ? "появилась новая запись" : "появились новые записи")
+                .arg(meditNames.join(', '))
+            text = description
+            title = "Новыe медитации"
+            open()
+        }
+    }
+
+
     ListModel {
         id: mainPageModel
 

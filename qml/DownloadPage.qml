@@ -125,26 +125,7 @@ Page {
         }
     }
 
-    Dialog {
-        id: dialog
-        property alias text: internalLabel.text
-        modal: true
-        standardButtons: Dialog.Ok
-        title: "Детали"
-
-        contentItem: Rectangle {
-            //color: "lightskyblue"
-            implicitWidth: 400
-            implicitHeight: 640
-            Label {
-                id: internalLabel
-                width: parent.width
-                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                horizontalAlignment: Text.AlignJustify
-                Material.foreground:Material.Grey
-            }
-        }
-    }
+    InfoDialog { id: dialog }
 
 
     BusyIndicator {

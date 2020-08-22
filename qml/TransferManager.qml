@@ -47,6 +47,7 @@ Item {
         var syncedItems = DB.getMeditations()
 
         var itemsToDisplay = []
+        var hasUnseenLocal = false
         for (var i = 0; i < syncedItems.rows.length; i++) {
             var syncedItem = syncedItems.rows.item(i)
 
@@ -69,12 +70,13 @@ Item {
                 "total" : 0
             }
 
-            hasUnseen = hasUnseen || !artObj.seen
+            hasUnseenLocal = hasUnseenLocal || !artObj.seen
             itemsToDisplay.push(artObj)
         }
 
         //console.log('itemsToDisplay', JSON.stringify(itemsToDisplay))
         transferModel.append(itemsToDisplay)
+        hasUnseen = hasUnseenLocal
     }
 
     function start(i) {
