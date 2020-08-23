@@ -77,13 +77,8 @@ function getFinishedMeditations() {
     var dbResult
 
     db.transaction(function(tx) {
-
-        // TODO BUG
-//        console.log("BUUUUUUUUUUUUUUUUUUUUUUUUUUG")
-//        tx.executeSql("delete from meditations")
-
         dbResult = tx.executeSql("SELECT * FROM meditations WHERE status = 'finished'")
-        console.log("meditations SELECTED: ", dbResult.rows.length)
+        console.log("finished meditations SELECTED: ", dbResult.rows.length)
     })
 
     return dbResult;

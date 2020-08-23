@@ -100,8 +100,10 @@ Page {
                     meditNames.push(modelItem.title)
             }
 
-            if (meditNames.length === tm.count)
-                console.log("ALL UNSEEN") // TODO BUG return
+            if (meditNames.length === tm.count) {
+                console.log("All meditations are unseen, suppressing dialog...")
+                return
+            }
 
             var description = "В разделе 'Загрузка медитаций' %1: %2. Загляните в раздел, чтобы больше не видеть это уведомление!"
                 .arg(meditNames.length === 1 ? "появилась новая запись" : "появились новые записи")

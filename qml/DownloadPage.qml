@@ -10,19 +10,16 @@ Page {
     property var downloadModel: transferManager.transferModel
 
     Component.onCompleted: transferManager.refresh()
-    Component.onDestruction: {
-        console.log("DownloadPage Component.onDestroyed")
-        transferManager.markAllAsSeen() // TODO Handle more gracefully
-    }
+    Component.onDestruction: transferManager.markAllAsSeen() // TODO Handle more gracefully
 
     property bool listRequestInProgress: true
 
     ListView {
+        model: downloadModel
         anchors {
             fill: parent
             margins: 15
         }
-        model: downloadModel
 
         delegate: CommonListItem {
             extendedMode: true
