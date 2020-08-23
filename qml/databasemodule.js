@@ -60,13 +60,22 @@ function openStdDataBase() {
 }
 
 
-function getMeditations() {
+function getMeditations(exceptList) {
     var db = openStdDataBase()
     var dbResult
 
     db.transaction(function(tx) {
-        dbResult = tx.executeSql("SELECT * FROM meditations")
-        console.log("meditations SELECTED: ", dbResult.rows.length)
+        // First call goes this shortcut.
+        if (exceptList.length === 0)
+            dbResult = tx.executeSql("SELECT * FROM meditations")
+        else
+        {
+            var questions = exceptList.map(function (v) { return '?' }).join(',')
+            var query = "SELECT * FROM meditations WHERE meditation NOT IN (%1)".arg(questions)
+            dbResult = tx.executeSql(query, exceptList)
+        }
+
+        console.log("meditations SELECTED: %1 (exceptList %2)".arg(dbResult.rows.length).arg(exceptList.length))
     })
 
     return dbResult;
@@ -77,6 +86,7 @@ function getFinishedMeditations() {
     var dbResult
 
     db.transaction(function(tx) {
+        //tx.executeSql("delete from meditations");console.log('BUUUUUUUUUUG'); // (JUST FOR DEBUG)
         dbResult = tx.executeSql("SELECT * FROM meditations WHERE status = 'finished'")
         console.log("finished meditations SELECTED: ", dbResult.rows.length)
     })
@@ -96,22 +106,22 @@ function syncMeditations(objects) {
             var obj = objects[i]
             var dbResult = tx.executeSql("SELECT 1 FROM meditations WHERE meditation=?", [obj.meditation])
             if (dbResult.rows.length > 0) {
-                console.log("Database, addMeditations: row already exist with meditation:", obj.meditation)
+                //console.log("Database, addMeditations: row already exist with meditation:", obj.meditation)
                 dbResult = tx.executeSql("UPDATE meditations SET title=?, subtitle=?, description=?, color=?, size=?, quality=?, duration=? WHERE meditation=?",
                                          [obj.title, obj.subtitle, obj.description, obj.color, obj.size, obj.quality, obj.duration, obj.meditation])
-                console.log("syncMeditations UPDATED: ", dbResult.rowsAffected)
+                console.log("syncMeditations UPDATED:", obj.meditation)
             }
             else {
                 dbResult = tx.executeSql('INSERT INTO meditations (title, subtitle, description, meditation, color, status, localUrl, size, quality, duration, seen) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                                          [obj.title, obj.subtitle, obj.description, obj.meditation, obj.color, 'initial', 'file:', obj.size, obj.quality, obj.duration, 0])
-                console.log("syncMeditations INSERT ID: ", dbResult.insertId)
+                console.log("syncMeditations INSERT ID:", dbResult.insertId)
             }
         }
     })
 
     db.transaction(function (tx) {
         var sqlIds = objects.map(function(v) { return "'%1'".arg(v.meditation) }).join(',')
-        console.log('sqlIds', sqlIds)
+        //console.log('sqlIds', sqlIds)
         var dbResult = tx.executeSql("DELETE FROM meditations WHERE meditation not in (%1) AND status <> 'finished'".arg(sqlIds), [])
         console.log("syncMeditations DELETED: ", dbResult.rowsAffected)
     })

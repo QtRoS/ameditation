@@ -41,13 +41,16 @@ Item {
         loadFromDb()
     }
 
+    // Loads only news entries, never deletes something from model.
     function loadFromDb() {
         //console.log('loadFromDb')
-        transferModel.clear()
-        var syncedItems = DB.getMeditations()
+        var exceptList = []
+        for (var j = 0; j < transferModel.count; j++)
+            exceptList.push(transferModel.get(j).meditation)
+
+        var syncedItems = DB.getMeditations(exceptList)
 
         var itemsToDisplay = []
-        var hasUnseenLocal = false
         for (var i = 0; i < syncedItems.rows.length; i++) {
             var syncedItem = syncedItems.rows.item(i)
 
@@ -70,12 +73,15 @@ Item {
                 "total" : 0
             }
 
-            hasUnseenLocal = hasUnseenLocal || !artObj.seen
             itemsToDisplay.push(artObj)
         }
 
         //console.log('itemsToDisplay', JSON.stringify(itemsToDisplay))
         transferModel.append(itemsToDisplay)
+
+        var hasUnseenLocal = false
+        for (var k = 0; k < transferModel.count; k++)
+            hasUnseenLocal = hasUnseenLocal || !transferModel.get(k).seen
         hasUnseen = hasUnseenLocal
     }
 
