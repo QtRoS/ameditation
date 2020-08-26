@@ -60,33 +60,47 @@ function openStdDataBase() {
 }
 
 
-function getMeditations(exceptList) {
+function getMeditations() {
     var db = openStdDataBase()
     var dbResult
 
     db.transaction(function(tx) {
-        // First call goes this shortcut.
-        if (exceptList.length === 0)
-            dbResult = tx.executeSql("SELECT * FROM meditations")
-        else
-        {
-            var questions = exceptList.map(function (v) { return '?' }).join(',')
-            var query = "SELECT * FROM meditations WHERE meditation NOT IN (%1)".arg(questions)
-            dbResult = tx.executeSql(query, exceptList)
-        }
-
-        console.log("meditations SELECTED: %1 (exceptList %2)".arg(dbResult.rows.length).arg(exceptList.length))
+        dbResult = tx.executeSql("SELECT * FROM meditations")
+        console.log("meditations SELECTED: %1".arg(dbResult.rows.length))
     })
 
     return dbResult;
 }
+
+// Obsolete.
+//function getMeditationsExcept(exceptList) {
+//    var db = openStdDataBase()
+//    var dbResult
+
+//    db.transaction(function(tx) {
+//        // First call goes this shortcut.
+//        if (exceptList.length === 0)
+//            dbResult = tx.executeSql("SELECT * FROM meditations")
+//        else
+//        {
+//            var questions = exceptList.map(function (v) { return '?' }).join(',')
+//            var query = "SELECT * FROM meditations WHERE meditation NOT IN (%1)".arg(questions)
+//            dbResult = tx.executeSql(query, exceptList)
+//        }
+
+//        console.log("meditations SELECTED: %1 (exceptList %2)".arg(dbResult.rows.length).arg(exceptList.length))
+//    })
+
+//    return dbResult;
+//}
+
 
 function getFinishedMeditations() {
     var db = openStdDataBase()
     var dbResult
 
     db.transaction(function(tx) {
-        //tx.executeSql("delete from meditations");console.log('BUUUUUUUUUUG'); // (JUST FOR DEBUG)
+//        tx.executeSql("delete from meditations");console.log('BUUUUUUUUUUG'); // (JUST FOR DEBUG)
         dbResult = tx.executeSql("SELECT * FROM meditations WHERE status = 'finished'")
         console.log("finished meditations SELECTED: ", dbResult.rows.length)
     })

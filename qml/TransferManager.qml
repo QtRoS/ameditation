@@ -41,19 +41,34 @@ Item {
         loadFromDb()
     }
 
-    // Loads only news entries, never deletes something from model.
     function loadFromDb() {
         //console.log('loadFromDb')
-        var exceptList = []
-        for (var j = 0; j < transferModel.count; j++)
-            exceptList.push(transferModel.get(j).meditation)
 
-        var syncedItems = DB.getMeditations(exceptList)
+        var existingMap = { }
+        for (var j = 0; j < transferModel.count; j++) {
+            var modelItem = transferModel.get(j)
+            existingMap[modelItem.meditation] = j
+        }
 
-        var itemsToDisplay = []
+        var syncedItems = DB.getMeditations()
+        var itemsToAppend = []
         for (var i = 0; i < syncedItems.rows.length; i++) {
             var syncedItem = syncedItems.rows.item(i)
 
+            // Just update existing model item with the new params from synchronized DB.
+            if (syncedItem.meditation in existingMap) {
+                var index = existingMap[syncedItem.meditation]
+                transferModel.setProperty(index, "title", syncedItem.title)
+                transferModel.setProperty(index, "subtitle", syncedItem.subtitle)
+                transferModel.setProperty(index, "description", syncedItem.description)
+                transferModel.setProperty(index, "color", syncedItem.color)
+                transferModel.setProperty(index, "size", syncedItem.size)
+                transferModel.setProperty(index, "quality", syncedItem.quality)
+                transferModel.setProperty(index, "duration", syncedItem.duration)
+                continue
+            }
+
+            // Add new object to model.
             var artObj = {
                 "title": syncedItem.title,
                 "subtitle": syncedItem.subtitle,
@@ -73,11 +88,11 @@ Item {
                 "total" : 0
             }
 
-            itemsToDisplay.push(artObj)
+            itemsToAppend.push(artObj)
         }
 
         //console.log('itemsToDisplay', JSON.stringify(itemsToDisplay))
-        transferModel.append(itemsToDisplay)
+        transferModel.append(itemsToAppend)
 
         var hasUnseenLocal = false
         for (var k = 0; k < transferModel.count; k++)
