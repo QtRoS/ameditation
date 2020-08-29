@@ -22,11 +22,12 @@ QString CppUtils::prependWithDownloadsPath(const QString &fileName) const
     static QString dirName;
     if (dirName.isEmpty())
     {
-        dirName = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + QStringLiteral("/AMeditation");
+//        dirName = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + QStringLiteral("/AMeditation");
+        dirName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation); // + QStringLiteral("/AMeditation");
         qCDebug(CppSingletone) << "Directory for downloads:" << dirName;
     }
 
-    if (!QDir(dirName).exists() && !QDir().mkdir(dirName))
+    if (!QDir(dirName).exists() && !QDir().mkpath(dirName))
     {
         qCCritical(CppSingletone) << "Can't create directory for downloads:" << dirName;
         return fileName;
