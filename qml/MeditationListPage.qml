@@ -31,10 +31,8 @@ Page {
             subtitle: model.subtitle
 
             onClicked: {
-                var audioSource = model.isBuiltIn ? "qrc:/media/%1.mp3".arg(meditation) : "file:%1".arg(model.localUrl)
-                var params = {"meditAudioSource": audioSource, "meditDesc": model.description,
-                    "meditTitle": model.title, "meditColor": model.color, "meditQuality": model.quality}
-                console.log("audioSource", audioSource)
+                var params = {"meditId": model.meditation, "meditLocalUrl": model.localUrl, "meditDesc": model.description, "meditTitle": model.title,
+                    "meditColor": model.color, "meditQuality": model.quality, "meditIsBuiltIn": model.isBuiltIn}
                 stackView.push(Qt.resolvedUrl("qrc:/qml/MeditationPage.qml"), params)
             }
 

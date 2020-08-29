@@ -3,23 +3,29 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtMultimedia 5.12
 
+import AMeditation.CppUtils 1.0
 import "jsmodule.js" as JS
 
 Page {
 
-    property string meditAudioSource: ""
+    property string meditId: ""
     property string meditTitle: ""
     property string meditDesc: ""
+    property string meditLocalUrl
     property string meditColor: ""
     property string meditQuality: ""
+    property bool   meditIsBuiltIn: false
 
     Audio {
         id: audioPlayback
         property bool isPlaying: audioPlayback.playbackState == Audio.PlayingState
-        source: meditAudioSource
+        source: meditIsBuiltIn ? "qrc:/media/%1.mp3".arg(meditId) : "file:%1".arg(meditLocalUrl)
         onStatusChanged: {
-            console.log("Audio onStatusChanged", status, errorString, error)
-            console.log("Audio duration: %1(s) %2(m)".arg(duration / 1000).arg(duration / 1000 / 60))
+            console.log("Audio onStatusChanged", status, error, errorString)
+            if (status == Audio.Loading)
+                console.log("Audio source", source)
+            if (status == Audio.Loaded)
+                console.log("Audio duration: %1(s) %2(m)".arg(duration / 1000).arg(duration / 1000 / 60))
         }
     }
 
@@ -131,8 +137,19 @@ Page {
                     }
 
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Material.foreground:Material.Grey
+                    Material.foreground: Material.Grey
                     textFormat: Text.PlainText
+                }
+
+                Label {
+                    text: "\nАудиофайл медитации не найден\nПопробуйте удалить её и скачать заново"
+                    width: parent.width
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    Material.foreground: Material.Red
+                    textFormat: Text.PlainText
+                    visible: !(meditIsBuiltIn || CppUtils.isFileExists(meditLocalUrl))
                 }
             }
         }

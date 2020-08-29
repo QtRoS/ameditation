@@ -54,6 +54,14 @@ bool CppUtils::removeFile(const QString &fileName) const
     return QFile::remove(fileName);
 }
 
+bool CppUtils::isFileExists(const QString &fileName) const
+{
+    QFileInfo fi(fileName);
+    bool exists = fi.exists();
+    qCDebug(CppSingletone) << "isFileExists:" << exists << fileName;
+    return exists;
+}
+
 QObject *CppUtils::cppUtilsSingletoneProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
     Q_UNUSED(engine)
