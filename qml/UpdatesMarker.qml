@@ -8,7 +8,7 @@ Rectangle {
     readonly property int __defSize: 10
     property int __size: __defSize
 
-    color: "steelblue"
+    color: "#FFB300"
     width: __size
     height: __size
     radius: __size
